@@ -24,7 +24,7 @@ This library is available on Maven Central. Add the following dependency to your
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter:gplayscrapper:0.1.1")
+    implementation("io.github.kdroidfilter:gplayscrapper:0.1.2")
 }
 ```
 
@@ -63,6 +63,35 @@ fun main() {
     }
 }
 ```
+
+### Using the Library in Java
+
+The library also supports Java through the `getGooglePlayApplicationInfoAsync` function, which returns a `CompletableFuture`.
+
+#### Example:
+
+```java
+import com.kdroid.gplayscrapper.GooglePlayApplicationInfo;
+import static com.kdroid.gplayscrapper.MainKt.getGooglePlayApplicationInfoAsync;
+import java.util.concurrent.CompletableFuture;
+
+public class Main {
+    public static void main(String[] args) {
+        String appId = "com.android.chrome";
+
+        // Call Kotlin function
+        CompletableFuture<GooglePlayApplicationInfo> appInfoFuture = getGooglePlayApplicationInfoAsync(appId);
+
+        appInfoFuture.thenAccept(appInfo -> {
+            System.out.println("App Info: " + appInfo.getTitle());
+        }).exceptionally(throwable -> {
+            System.err.println("Error : " + throwable.getMessage());
+            return null;
+        });
+    }
+}
+```
+
 
 ## 🔗 Data Models
 
