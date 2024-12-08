@@ -24,9 +24,21 @@ This library is available on Maven Central. Add the following dependency to your
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter:gplayscrapper:0.1.2")
+    implementation("io.github.kdroidfilter:gplayscrapper:0.1.3")
 }
 ```
+
+### Gradle Groovy DSL
+
+```groovy
+dependencies {
+    implementation 'io.github.kdroidfilter:gplayscrapper:0.1.3'
+}
+```
+
+
+
+
 
 ## 🔄 Usage
 
