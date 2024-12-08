@@ -75,7 +75,6 @@ fun main() {
     }
 }
 ```
-
 ### Using the Library in Java
 
 The library also supports Java through the `getGooglePlayApplicationInfoAsync` function, which returns a `CompletableFuture`.
@@ -91,8 +90,8 @@ public class Main {
     public static void main(String[] args) {
         String appId = "com.android.chrome";
 
-        // Call Kotlin function
-        CompletableFuture<GooglePlayApplicationInfo> appInfoFuture = getGooglePlayApplicationInfoAsync(appId);
+        // Call Kotlin function with parameters
+        CompletableFuture<GooglePlayApplicationInfo> appInfoFuture = getGooglePlayApplicationInfoAsync("com.android.chrome", "en", "us");
 
         appInfoFuture.thenAccept(appInfo -> {
             System.out.println("App Info: " + appInfo.getTitle());
@@ -103,7 +102,6 @@ public class Main {
     }
 }
 ```
-
 
 ## 🔗 Data Models
 
