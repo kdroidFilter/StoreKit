@@ -29,7 +29,7 @@ internal object JsonExtensions {
     fun JsonElement?.asDoubleOrNull(): Double? = (this as? JsonPrimitive)?.doubleOrNull
 
     fun jsonElementToBool(e: JsonElement?): Boolean {
-        // In le code Python, bool est déterminé par le cast direct. Souvent s == 0 => false else true
+        // In Python code, bool is determined by direct casting. Often s == 0 => false else true
         val v = e?.asLongOrNull() ?: return false
         return v != 0L
     }
