@@ -1,4 +1,4 @@
-# 💡 Google Play Scrapper Library
+# 💡 GPlay Scrapper Library
 
 ## 🔄 Introduction
 
@@ -156,5 +156,6 @@ This library is licensed under the MIT License. See the LICENSE file for details
 
 ## 🚫 Disclaimer
 
-This library is intended for educational and personal use. Scraping data from Google Play Store may violate its terms of service. Use responsibly and at your own risk.
+The user assumes full responsibility for the use of this library and must verify the legality of such use in their country.
 
+This library is intended for educational and personal use. Scraping data from Google Play Store may violate its terms of service. Use responsibly and at your own risk.
