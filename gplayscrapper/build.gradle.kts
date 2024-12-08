@@ -90,7 +90,7 @@ mavenPublishing {
         name.set("GPlay Scrapper Library")
         description.set("GPlay Scrapper Library is a Kotlin library for extracting comprehensive app data from the Google Play Store.")
         inceptionYear.set("2024")
-        url.set("https://github.com/kdroidFilter/GPlay-Scrapper ")
+        url.set("https://github.com/kdroidFilter/GPlay-Scrapper")
 
         licenses {
             license {
@@ -108,7 +108,7 @@ mavenPublishing {
         }
 
         scm {
-            url.set("https://github.com/kdroid/gplayscrapper")
+            url.set("https://github.com/kdroidFilter/GPlay-Scrapper")
         }
     }
 
