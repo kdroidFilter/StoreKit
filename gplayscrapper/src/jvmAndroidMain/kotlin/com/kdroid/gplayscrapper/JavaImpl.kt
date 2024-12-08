@@ -8,9 +8,13 @@ import kotlinx.coroutines.future.future
 import java.util.concurrent.CompletableFuture
 
 @DelicateCoroutinesApi
-fun getGooglePlayApplicationInfoAsync(appId: String): CompletableFuture<GooglePlayApplicationInfo> {
+fun getGooglePlayApplicationInfoAsync(
+    appId: String,
+    lang: String = "en",
+    country: String = "us"
+): CompletableFuture<GooglePlayApplicationInfo> {
     return GlobalScope.future {
-        getGooglePlayApplicationInfo(appId)
+        getGooglePlayApplicationInfo(appId, lang, country)
     }
 }
 
