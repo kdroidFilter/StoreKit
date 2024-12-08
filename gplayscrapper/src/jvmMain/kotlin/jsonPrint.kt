@@ -12,8 +12,8 @@ fun main() {
 
     }
     runBlocking {
-        val appId = "com.android.chrome"
-        val appInfo = getGooglePlayApplicationInfo(appId, )
+        val appId = "com.MizrahiTefahot.nh"
+        val appInfo = getGooglePlayApplicationInfo(appId, "he", "il" )
         println(json.encodeToString(appInfo))
     }
 }

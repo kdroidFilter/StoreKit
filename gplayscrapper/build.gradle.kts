@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.krdoid.gplayscrapper"
-version = "0.1.1"
+version = "0.1.2"
 
 kotlin {
     jvmToolchain(11)
@@ -49,6 +49,17 @@ kotlin {
 
         commonTest.dependencies {
             implementation(kotlin("test"))
+        }
+
+        val jvmAndroidMain by creating {
+            dependsOn(commonMain.get())
+        }
+
+        androidMain {
+            dependsOn(jvmAndroidMain)
+        }
+        jvmMain {
+            dependsOn(jvmAndroidMain)
         }
 
         androidMain.dependencies {
