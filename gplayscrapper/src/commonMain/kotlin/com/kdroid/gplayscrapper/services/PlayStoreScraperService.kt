@@ -16,6 +16,7 @@ import com.kdroid.gplayscrapper.utils.NetworkUtils.fetchAppPage
 import com.kdroid.gplayscrapper.utils.NetworkUtils.logger
 import com.kdroid.gplayscrapper.utils.parseDataSetsFromScripts
 import io.ktor.client.statement.*
+import io.ktor.http.*
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonPrimitive
@@ -116,8 +117,13 @@ internal fun extractHistogram(detailJson: JsonElement): List<Long> {
  */
 suspend fun getGooglePlayApplicationInfo(appId: String, lang: String = "en", country: String = "us"): GooglePlayApplicationInfo {
     logger.info { "Fetching app details for appId: $appId" }
-    val html = fetchAppPage(appId, lang, country).bodyAsText()
+    val response = fetchAppPage(appId, lang, country)
+    val html = response.bodyAsText()
     logger.info { "Fetched HTML content of size: ${html.length}" }
+
+    if (!response.status.isSuccess()) {
+        throw IllegalArgumentException("Application with appId: $appId does not exist or is not accessible. HTTP status: ${response.status}")
+    }
 
     val scripts = extractJsonBlobsFromHtml(html)
     val datasets = parseDataSetsFromScripts(scripts)
