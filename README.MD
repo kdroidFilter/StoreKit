@@ -2,7 +2,7 @@
 
 ## 🔄 Introduction
 
-This library is a full Kotlin adaptation of the [google-play-scraper](https://github.com/JoMingyu/google-play-scraper) python library.
+This library is a full Kotlin adaptation of the [google-play-scraper](https://github.com/JoMingyu/google-play-scraper) python library.
 
 The GPlay Scrapper Library provides a comprehensive way to extract detailed information about applications listed on the Google Play Store. With this library, you can fetch details such as application descriptions, developer information, categories, reviews, and more.
 
@@ -18,7 +18,7 @@ This library is built using Kotlin and leverages kotlinx.serialization for parsi
 
 ## 📦 Installation
 
-This library is available on maven central, add the following dependency to your project:
+This library is available on Maven Central. Add the following dependency to your project:
 
 ### Gradle Kotlin DSL
 
@@ -32,7 +32,14 @@ dependencies {
 
 ### Fetching App Information
 
-To fetch detailed information about a specific app, you can use the `getGooglePlayApplicationInfo` function. This function requires the app ID as a parameter and optionally takes the language and country codes.
+To fetch detailed information about a specific app, you can use the `getGooglePlayApplicationInfo` function. This function requires the app ID as a parameter and optionally takes the language and country codes. If the app is not found or accessible, it throws an `IllegalArgumentException`.
+
+#### Parameters:
+
+- `appId: String` (mandatory): The unique identifier of the app.
+- The country and language codes that can be included in the `lang` and `country` parameters described below depend on the ISO 3166 and ISO 639-1 standards, respectively.
+- `lang: String` (optional, default = "en"): Language code for the app details.
+- `country: String` (optional, default = "us"): Country code for the app details.
 
 #### Example:
 
@@ -168,7 +175,6 @@ Below is an example of the JSON output generated for an app:
     "appId": "com.android.chrome",
     "url": "https://play.google.com/store/apps/details?id=com.android.chrome&hl=en&gl=us"
 }
-
 ```
 
 ### `GooglePlayCategory`
@@ -178,7 +184,7 @@ Represents app categories with:
 - `name`: Category name.
 - `id`: Category ID.
 
-## 🔧 Configuration
+## 💧 Configuration
 
 ### Logging
 
@@ -196,8 +202,9 @@ Contributions to the library are welcome. If you find a bug or want to request a
 
 This library is licensed under the MIT License. See the LICENSE file for details.
 
-## 🚫 Disclaimer
+## 🛑 Disclaimer
 
 The user assumes full responsibility for the use of this library and must verify the legality of such use in their country.
 
 This library is intended for educational and personal use. Scraping data from Google Play Store may violate its terms of service. Use responsibly and at your own risk.
+

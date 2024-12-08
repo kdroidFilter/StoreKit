@@ -199,9 +199,6 @@ suspend fun getGooglePlayApplicationInfo(appId: String, lang: String = "en", cou
     val updated = nestedLookup(detailJson, listOf(1,2,145,0,1,0)).asLongOrNull() ?: 0
     val version = nestedLookup(detailJson, listOf(1,2,140,0,0,0)).asStringOrNull() ?: "Varies with device"
 
-
-
-
     val url = "$BASE_PLAY_STORE_URL$DETAIL_PATH?id=$appId&hl=$lang&gl=$country"
 
     return GooglePlayApplicationInfo(
