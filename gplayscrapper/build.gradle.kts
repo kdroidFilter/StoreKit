@@ -1,11 +1,15 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.vannitktech.maven.publish)
+
 }
 
 group = "com.krdoid.gplayscrapper"
-version = "1.0"
+version = "0.1.0"
 
 kotlin {
     jvmToolchain(11)
@@ -93,4 +97,42 @@ android {
     defaultConfig {
         minSdk = 21
     }
+}
+
+mavenPublishing {
+    coordinates(
+        groupId = "io.github.kdroidfilter",
+        artifactId = "gplayscrapper",
+        version = version.toString()
+    )
+
+    pom {
+        name.set("GPlay Scrapper Library")
+        description.set("GPlay Scrapper Library is a Kotlin library for extracting comprehensive app data from the Google Play Store.")
+        inceptionYear.set("2024")
+        url.set("https://github.com/kdroidFilter/GPlay-Scrapper")
+
+        licenses {
+            license {
+                name.set("MIT")
+                url.set("https://opensource.org/licenses/MIT")
+            }
+        }
+
+        developers {
+            developer {
+                id.set("kdroid")
+                name.set("Elyahou Hadass")
+                email.set("elyahou.hadass@gmail.com")
+            }
+        }
+
+        scm {
+            url.set("https://github.com/kdroid/gplayscrapper")
+        }
+    }
+
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    signAllPublications()
 }

@@ -4,7 +4,7 @@
 
 This library is a full Kotlin adaptation of the [google-play-scraper](https://github.com/JoMingyu/google-play-scraper) python library.
 
-The Google Play Scrapper Library provides a comprehensive way to extract detailed information about applications listed on the Google Play Store. With this library, you can fetch details such as application descriptions, developer information, categories, reviews, and more.
+The GPlay Scrapper Library provides a comprehensive way to extract detailed information about applications listed on the Google Play Store. With this library, you can fetch details such as application descriptions, developer information, categories, reviews, and more.
 
 This library is built using Kotlin and leverages kotlinx.serialization for parsing JSON data and Ktor for HTTP requests.
 
