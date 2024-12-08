@@ -23,7 +23,7 @@ fun getGooglePlayApplicationInfoAsync(
 
   String appId = "com.android.chrome";
         // Call kotlin function
-        CompletableFuture<GooglePlayApplicationInfo> appInfoFuture = getGooglePlayApplicationInfoAsync(appId);
+        CompletableFuture<GooglePlayApplicationInfo> appInfoFuture = getGooglePlayApplicationInfoAsync(appId, "en", "us");
 
         appInfoFuture.thenAccept(appInfo -> {
             System.out.println("App Info: " + appInfo.getTitle());
