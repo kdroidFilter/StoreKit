@@ -12,8 +12,8 @@ fun main() {
 
     }
     runBlocking {
-        val appId = "com.MizrahiTefahot.nh"
-        val appInfo = getGooglePlayApplicationInfo(appId, "he", "il" )
+        val appId = "com.openai.chatgpt"
+        val appInfo = getGooglePlayApplicationInfo(appId, "fr", "fr" )
         println(json.encodeToString(appInfo))
     }
 }

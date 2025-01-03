@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.krdoid.gplayscrapper"
-version = "0.1.4"
+version = "0.1.5"
 
 kotlin {
     jvmToolchain(11)
@@ -30,6 +30,27 @@ kotlin {
     mingwX64 {
         binaries.staticLib {
             baseName = "shared"
+        }
+    }
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "core"
+            isStatic = true
+        }
+    }
+
+    listOf(
+        macosX64(),
+        macosArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "core"
+            isStatic = true
         }
     }
 
