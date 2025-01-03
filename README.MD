@@ -24,7 +24,7 @@ This library is available on Maven Central. Add the following dependency to your
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter:gplayscrapper:0.1.3")
+    implementation("io.github.kdroidfilter:gplayscrapper:0.1.4")
 }
 ```
 
@@ -32,7 +32,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation 'io.github.kdroidfilter:gplayscrapper:0.1.3'
+    implementation 'io.github.kdroidfilter:gplayscrapper:0.1.4'
 }
 ```
 
