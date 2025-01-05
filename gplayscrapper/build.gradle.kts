@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.krdoid.gplayscrapper"
-version = "0.1.5"
+version = "0.1.6"
 
 kotlin {
     jvmToolchain(11)
