@@ -3,7 +3,7 @@
 kmplog = "0.6.0"
 kotlin = "2.1.20"
 agp = "8.6.1"
-kotlin-logging = "7.0.5"
+kotlin-logging = "7.0.6"
 kotlinx-coroutines = "1.10.1"
 kotlinx-serialization = "1.8.0"
 ksoup-html = "0.5.0"
