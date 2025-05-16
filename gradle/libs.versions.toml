@@ -6,7 +6,8 @@ agp = "8.6.1"
 kotlin-logging = "7.0.5"
 kotlinx-coroutines = "1.10.1"
 kotlinx-serialization = "1.8.1"
-ksoup-html = "0.5.0"
+ksoup-html      = "0.5.0"
+ksoup-entities  = "0.5.0"
 ktor = "3.1.2"
 slf4j-simple = "2.0.17"
 vanniktech = "0.32.0"
@@ -18,7 +19,8 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
-ksoup-html = { module = "com.mohamedrejeb.ksoup:ksoup-html", version.ref = "ksoup-html" }
+ksoup-html     = { module = "com.mohamedrejeb.ksoup:ksoup-html",    version.ref = "ksoup-html" }
+ksoup-entities = { module = "com.mohamedrejeb.ksoup:ksoup-entities", version.ref = "ksoup-entities" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }

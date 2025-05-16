@@ -9,7 +9,11 @@ plugins {
 }
 
 group = "com.krdoid.gplayscrapper"
-version = "0.1.6"
+val ref = System.getenv("GITHUB_REF") ?: ""
+val version = if (ref.startsWith("refs/tags/")) {
+    val tag = ref.removePrefix("refs/tags/")
+    if (tag.startsWith("v")) tag.substring(1) else tag
+} else "dev"
 
 kotlin {
     jvmToolchain(11)
@@ -65,6 +69,7 @@ kotlin {
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.client.cio)
             implementation(libs.ksoup.html)
+            implementation(libs.ksoup.entities)
             implementation(libs.kotlin.logging)
         }
 
