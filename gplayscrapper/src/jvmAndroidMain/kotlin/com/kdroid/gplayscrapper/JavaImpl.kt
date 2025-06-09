@@ -1,6 +1,6 @@
 package com.kdroid.gplayscrapper
 
-import com.kdroid.gplayscrapper.model.GooglePlayApplicationInfo
+import com.kdroid.gplayscrapper.core.model.GooglePlayApplicationInfo
 import com.kdroid.gplayscrapper.services.getGooglePlayApplicationInfo
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope

@@ -2,8 +2,9 @@ package com.kdroid.gplayscrapper.services
 
 import com.kdroid.gplayscrapper.constants.BASE_PLAY_STORE_URL
 import com.kdroid.gplayscrapper.constants.DETAIL_PATH
-import com.kdroid.gplayscrapper.model.GooglePlayApplicationInfo
-import com.kdroid.gplayscrapper.model.GooglePlayCategory
+import com.kdroid.gplayscrapper.core.model.GooglePlayApplicationInfo
+import com.kdroid.gplayscrapper.core.model.GooglePlayCategory
+
 import com.kdroid.gplayscrapper.utils.HtmlDecoder.unescapeHtml
 import com.kdroid.gplayscrapper.utils.JsonExtensions.asDoubleOrNull
 import com.kdroid.gplayscrapper.utils.JsonExtensions.asLongOrNull

@@ -1,4 +1,4 @@
-package com.kdroid.gplayscrapper.model
+package com.kdroid.gplayscrapper.core.model
 
 import kotlinx.serialization.Serializable
 

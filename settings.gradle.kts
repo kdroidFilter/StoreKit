@@ -29,4 +29,4 @@ dependencyResolutionManagement {
     }
 }
 include(":gplayscrapper")
-
+include(":core")
