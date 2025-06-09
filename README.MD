@@ -24,7 +24,7 @@ This library is available on Maven Central. Add the following dependency to your
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter:gplayscrapper:0.1.6")
+    implementation("io.github.kdroidfilter:gplayscrapper:<version>")
 }
 ```
 
@@ -32,12 +32,31 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation 'io.github.kdroidfilter:gplayscrapper:0.1.6'
+    implementation 'io.github.kdroidfilter:gplayscrapper:<version>'
 }
 ```
 
+### Using Only the Core Module
 
+If you only need the model classes (like `GooglePlayApplicationInfo` and `GooglePlayCategory`) without the scraping functionality, you can use just the core module:
 
+#### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter:gplayscrapper-core:<version>")
+}
+```
+
+#### Gradle Groovy DSL
+
+```groovy
+dependencies {
+    implementation 'io.github.kdroidfilter:gplayscrapper-core:<version>'
+}
+```
+
+This is useful when you only need the data models in your application, for example when you're building a client that consumes data from a server that already uses the full library.
 
 
 ## 🔄 Usage
@@ -56,11 +75,6 @@ To fetch detailed information about a specific app, you can use the `getGooglePl
 #### Example:
 
 ```kotlin
-import com.kdroid.gplayscrapper.services.getGooglePlayApplicationInfo
-import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-
 fun main() {
     val json = Json {
         prettyPrint = true
@@ -82,9 +96,6 @@ The library also supports Java through the `getGooglePlayApplicationInfoAsync` f
 #### Example:
 
 ```java
-import com.kdroid.gplayscrapper.GooglePlayApplicationInfo;
-import static com.kdroid.gplayscrapper.MainKt.getGooglePlayApplicationInfoAsync;
-import java.util.concurrent.CompletableFuture;
 
 public class Main {
     public static void main(String[] args) {
@@ -246,4 +257,3 @@ This library is licensed under the MIT License. See the LICENSE file for details
 The user assumes full responsibility for the use of this library and must verify the legality of such use in their country.
 
 This library is intended for educational and personal use. Scraping data from Google Play Store may violate its terms of service. Use responsibly and at your own risk.
-
