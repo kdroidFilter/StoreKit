@@ -19,6 +19,7 @@ kotlin {
     androidTarget {
         publishLibraryVariants("release")
     }
+    wasmJs { browser() }
 
     jvm()
 
