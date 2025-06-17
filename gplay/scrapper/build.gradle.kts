@@ -78,15 +78,12 @@ kotlin {
             implementation(kotlin("test"))
         }
 
-        val jvmAndroidMain by creating {
-            dependsOn(commonMain.get())
-        }
-
-        androidMain {
-            dependsOn(jvmAndroidMain)
-        }
-        jvmMain {
-            dependsOn(jvmAndroidMain)
+        nativeMain.dependencies {
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.serialization)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.client.cio)
         }
 
         androidMain.dependencies {
@@ -96,7 +93,6 @@ kotlin {
         jvmMain.dependencies {
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.slf4j.simple)
-
         }
 
     }
