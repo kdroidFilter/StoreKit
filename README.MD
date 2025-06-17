@@ -189,7 +189,39 @@ dependencies {
 
 #### Fetching App Information from Aptoide
 
-To fetch detailed information about a specific app from Aptoide, you can use the `AptoideService` class.
+To fetch detailed information about a specific app from Aptoide, you can use the `AptoideService` class. The class provides several methods to retrieve app information using different identifiers.
+
+##### Methods:
+
+###### `getAppMetaByPackageName`
+
+Fetches application metadata using the package name.
+
+**Parameters:**
+- `packageName: String` (mandatory): The package name of the application.
+- `language: String` (optional, default = "en"): Language code for the content localization.
+
+**Returns:** An instance of `AptoideApplicationInfo` containing the application's metadata.
+
+###### `getAppMetaById`
+
+Fetches application metadata using the app ID.
+
+**Parameters:**
+- `appId: Long` (mandatory): The ID of the application.
+- `language: String` (optional, default = "en"): Language code for the content localization.
+
+**Returns:** An instance of `AptoideApplicationInfo` containing the application's metadata.
+
+###### `getAppMetaByMd5sum`
+
+Fetches application metadata using the APK MD5 sum.
+
+**Parameters:**
+- `md5sum: String` (mandatory): The MD5 sum of the APK file.
+- `language: String` (optional, default = "en"): Language code for the content localization.
+
+**Returns:** An instance of `AptoideApplicationInfo` containing the application's metadata.
 
 ##### Example:
 
@@ -197,14 +229,21 @@ To fetch detailed information about a specific app from Aptoide, you can use the
 fun main() {
     val json = Json { prettyPrint = true }
     val aptoideService = AptoideService()
-    
+
     runBlocking {
         try {
             // Fetch app metadata by package name
-            // The second parameter is the store name (e.g., "eb" for the main Aptoide store)
-            val appInfo = aptoideService.getAppMetaByPackageName("com.waze", "eb")
+            val appInfo = aptoideService.getAppMetaByPackageName("com.waze", "en")
             println(json.encodeToString(appInfo))
-            
+
+            // Fetch app metadata by app ID
+            val appInfoById = aptoideService.getAppMetaById(12345, "en")
+            println(json.encodeToString(appInfoById))
+
+            // Fetch app metadata by APK MD5 sum
+            val appInfoByMd5 = aptoideService.getAppMetaByMd5sum("abcdef1234567890abcdef1234567890", "en")
+            println(json.encodeToString(appInfoByMd5))
+
         } catch (e: Exception) {
             println("Error fetching app metadata: ${e.message}")
             e.printStackTrace()
