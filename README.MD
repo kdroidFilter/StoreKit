@@ -56,13 +56,6 @@ dependencies {
 }
 ```
 
-##### Gradle Groovy DSL
-
-```groovy
-dependencies {
-    implementation 'io.github.kdroidfilter.androidappstorekit.gplay:scrapper:<version>'
-}
-```
 
 #### Google Play Core Module
 
@@ -73,14 +66,6 @@ If you only need the model classes (like `GooglePlayApplicationInfo` and `Google
 ```kotlin
 dependencies {
     implementation("io.github.kdroidfilter.androidappstorekit.gplay:core:<version>")
-}
-```
-
-##### Gradle Groovy DSL
-
-```groovy
-dependencies {
-    implementation 'io.github.kdroidfilter.androidappstorekit.gplay:core:<version>'
 }
 ```
 
@@ -98,14 +83,6 @@ dependencies {
 }
 ```
 
-##### Gradle Groovy DSL
-
-```groovy
-dependencies {
-    implementation 'io.github.kdroidfilter.androidappstorekit.aptoide:api:<version>'
-}
-```
-
 #### Aptoide Core Module
 
 If you only need the model classes (like `AptoideApplicationInfo`) without the API client:
@@ -115,14 +92,6 @@ If you only need the model classes (like `AptoideApplicationInfo`) without the A
 ```kotlin
 dependencies {
     implementation("io.github.kdroidfilter.androidappstorekit.aptoide:core:<version>")
-}
-```
-
-##### Gradle Groovy DSL
-
-```groovy
-dependencies {
-    implementation 'io.github.kdroidfilter.androidappstorekit.aptoide:core:<version>'
 }
 ```
 
@@ -143,10 +112,6 @@ To fetch detailed information about a specific app from Google Play, you can use
 ##### Example:
 
 ```kotlin
-import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.getGooglePlayApplicationInfo
-import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.json.Json
-
 fun main() {
     val json = Json {
         prettyPrint = true
@@ -162,35 +127,6 @@ fun main() {
 }
 ```
 
-#### Using Google Play Scraper in Java
-
-The library also supports Java through the `getGooglePlayApplicationInfoAsync` function, which returns a `CompletableFuture`.
-
-##### Example:
-
-```java
-import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.JavaImplKt;
-import io.github.kdroidfilter.androidappstorekit.gplay.core.model.GooglePlayApplicationInfo;
-import java.util.concurrent.CompletableFuture;
-
-public class Main {
-    public static void main(String[] args) {
-        String appId = "com.android.chrome";
-
-        // Call Kotlin function with parameters
-        CompletableFuture<GooglePlayApplicationInfo> appInfoFuture = 
-            JavaImplKt.getGooglePlayApplicationInfoAsync(appId, "en", "us");
-
-        appInfoFuture.thenAccept(appInfo -> {
-            System.out.println("App Info: " + appInfo.getTitle());
-        }).exceptionally(throwable -> {
-            System.err.println("Error: " + throwable.getMessage());
-            return null;
-        });
-    }
-}
-```
-
 ### Aptoide Store
 
 #### Fetching App Information from Aptoide
@@ -200,10 +136,6 @@ To fetch detailed information about a specific app from Aptoide, you can use the
 ##### Example:
 
 ```kotlin
-import io.github.kdroidfilter.androidappstorekit.aptoide.api.services.AptoideService
-import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.json.Json
-
 fun main() {
     val json = Json { prettyPrint = true }
     val aptoideService = AptoideService()
