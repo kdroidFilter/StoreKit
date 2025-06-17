@@ -1,78 +1,85 @@
-# 💡 GPlay Scrapper Library
+# 💡 AndroidAppStoreKit Library
+
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter.androidappstorekit.gplay/core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter.androidappstorekit.gplay%22%20AND%20a:%22core%22)
+
+## 📑 Table of Contents
+- [Introduction](#-introduction)
+- [Features](#-features)
+- [Google Play Store](#-google-play-store)
+  - [Installation](#google-play-installation)
+  - [Usage](#google-play-usage)
+  - [Data Models](#google-play-data-models)
+- [Aptoide Store](#-aptoide-store)
+  - [Installation](#aptoide-installation)
+  - [Usage](#aptoide-usage)
+  - [Data Models](#aptoide-data-models)
+- [Configuration](#-configuration)
+- [Contributions](#-contributions)
+- [License](#-license)
+- [Disclaimer](#-disclaimer)
 
 ## 🔄 Introduction
 
-This library is a full Kotlin adaptation of the [google-play-scraper](https://github.com/JoMingyu/google-play-scraper) python library.
+AndroidAppStoreKit is a comprehensive Kotlin multiplatform library for extracting detailed information about applications from various Android app stores. Currently, it supports:
 
-The GPlay Scrapper Library provides a comprehensive way to extract detailed information about applications listed on the Google Play Store. With this library, you can fetch details such as application descriptions, developer information, categories, reviews, and more.
+1. **Google Play Store** - A full Kotlin adaptation of the [google-play-scraper](https://github.com/JoMingyu/google-play-scraper) Python library
+2. **Aptoide Store** - A client for the Aptoide API
 
-This library is built using Kotlin and leverages kotlinx.serialization for parsing JSON data and Ktor for HTTP requests.
+With this library, you can fetch details such as application descriptions, developer information, categories, reviews, ratings, and more from multiple app stores using a consistent API.
+
+This library is built using Kotlin Multiplatform and leverages kotlinx.serialization for parsing JSON data and Ktor for HTTP requests.
 
 ## 📊 Features
 
-- Fetch application details including title, description, developer info, price, etc.
-- Extract application categories and genres.
-- Retrieve app ratings, reviews, and download counts.
-- Identify in-app purchase details and sale statuses.
-- Collect metadata like screenshots, icons, and videos.
+- **Multi-store support**: Extract app data from Google Play Store and Aptoide
+- **Comprehensive app details**: Fetch application information including title, description, developer info, price, etc.
+- **Rich metadata**: Retrieve app ratings, reviews, download counts, screenshots, icons, and videos
+- **Cross-platform**: Works on Android, iOS, JVM, and other platforms supported by Kotlin Multiplatform
+- **Modular architecture**: Use only the modules you need for your specific use case
 
-## 📦 Installation
+## 🔍 Google Play Store
 
-This library is available on Maven Central. Add the following dependency to your project:
+### Google Play Installation
 
-### Gradle Kotlin DSL
+The Google Play modules are available on Maven Central:
 
-```kotlin
-dependencies {
-    implementation("io.github.kdroidfilter:gplayscrapper:<version>")
-}
-```
+#### Google Play Scraper Module
 
-### Gradle Groovy DSL
+For scraping data from the Google Play Store:
 
-```groovy
-dependencies {
-    implementation 'io.github.kdroidfilter:gplayscrapper:<version>'
-}
-```
-
-### Using Only the Core Module
-
-If you only need the model classes (like `GooglePlayApplicationInfo` and `GooglePlayCategory`) without the scraping functionality, you can use just the core module:
-
-#### Gradle Kotlin DSL
+##### Gradle Kotlin DSL
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter:gplayscrapper-core:<version>")
+    implementation("io.github.kdroidfilter.androidappstorekit.gplay:scrapper:<version>")
 }
 ```
 
-#### Gradle Groovy DSL
+#### Google Play Core Module
 
-```groovy
+If you only need the model classes (like `GooglePlayApplicationInfo` and `GooglePlayCategory`) without the scraping functionality:
+
+##### Gradle Kotlin DSL
+
+```kotlin
 dependencies {
-    implementation 'io.github.kdroidfilter:gplayscrapper-core:<version>'
+    implementation("io.github.kdroidfilter.androidappstorekit.gplay:core:<version>")
 }
 ```
 
-This is useful when you only need the data models in your application, for example when you're building a client that consumes data from a server that already uses the full library.
+### Google Play Usage
 
+#### Fetching App Information from Google Play
 
-## 🔄 Usage
+To fetch detailed information about a specific app from Google Play, you can use the `getGooglePlayApplicationInfo` function. This function requires the app ID as a parameter and optionally takes the language and country codes.
 
-### Fetching App Information
-
-To fetch detailed information about a specific app, you can use the `getGooglePlayApplicationInfo` function. This function requires the app ID as a parameter and optionally takes the language and country codes. If the app is not found or accessible, it throws an `IllegalArgumentException`.
-
-#### Parameters:
+##### Parameters:
 
 - `appId: String` (mandatory): The unique identifier of the app.
-- The country and language codes that can be included in the `lang` and `country` parameters described below depend on the ISO 3166 and ISO 639-1 standards, respectively.
-- `lang: String` (optional, default = "en"): Language code for the app details.
-- `country: String` (optional, default = "us"): Country code for the app details.
+- `lang: String` (optional, default = "en"): Language code for the app details (ISO 639-1).
+- `country: String` (optional, default = "us"): Country code for the app details (ISO 3166).
 
-#### Example:
+##### Example:
 
 ```kotlin
 fun main() {
@@ -89,160 +96,422 @@ fun main() {
     }
 }
 ```
-### Using the Library in Java
 
-The library also supports Java through the `getGooglePlayApplicationInfoAsync` function, which returns a `CompletableFuture`.
+### Google Play Data Models
 
-#### Example:
+#### `GooglePlayApplicationInfo`
 
-```java
+The `GooglePlayApplicationInfo` class is a comprehensive data model that represents detailed information about an application on the Google Play Store. It contains the following fields:
 
-public class Main {
-    public static void main(String[] args) {
-        String appId = "com.android.chrome";
+- `title: String` - The title/name of the application
+- `description: String` - Plain text description of the application
+- `descriptionHTML: String` - HTML-formatted description of the application
+- `summary: String` - A short summary of the application
+- `installs: String` - Number of installs as a formatted string (e.g., "10,000,000+")
+- `minInstalls: Long` - Minimum number of installs as a numeric value
+- `realInstalls: Long` - Estimated real number of installs
+- `score: Double` - Overall rating score (0.0 to 5.0)
+- `ratings: Long` - Total number of ratings
+- `reviews: Long` - Total number of reviews
+- `histogram: List<Long>` - Distribution of ratings (1-5 stars)
+- `price: Double` - Price of the application in the specified currency
+- `free: Boolean` - Whether the application is free
+- `currency: String` - Currency code for the price (e.g., "USD")
+- `sale: Boolean` - Whether the application is on sale
+- `saleTime: Long?` - Duration of the sale in milliseconds
+- `originalPrice: Double?` - Original price before the sale
+- `saleText: String?` - Text describing the sale
+- `offersIAP: Boolean` - Whether the application offers in-app purchases
+- `inAppProductPrice: String` - Price range for in-app purchases
+- `developer: String` - Name of the developer
+- `developerId: String` - Unique identifier of the developer
+- `developerEmail: String` - Contact email of the developer
+- `developerWebsite: String` - Website of the developer
+- `developerAddress: String` - Physical address of the developer
+- `privacyPolicy: String` - URL to the privacy policy
+- `genre: String` - Primary genre of the application
+- `genreId: String` - Identifier of the primary genre
+- `categories: List<GooglePlayCategory>` - List of categories the application belongs to
+- `icon: String` - URL to the application icon
+- `headerImage: String` - URL to the header image
+- `screenshots: List<String>` - URLs to the application screenshots
+- `video: String` - URL to the promotional video
+- `videoImage: String` - URL to the video thumbnail
+- `contentRating: String` - Content rating (e.g., "Everyone", "Teen")
+- `contentRatingDescription: String` - Description of the content rating
+- `adSupported: Boolean` - Whether the application is supported by ads
+- `containsAds: Boolean` - Whether the application contains ads
+- `released: String` - Release date of the application
+- `updated: Long` - Last update timestamp
+- `version: String` - Current version of the application
+- `comments: List<String>` - List of user comments
+- `appId: String` - Unique identifier of the application
+- `url: String` - URL to the application's page on Google Play
 
-        // Call Kotlin function with parameters
-        CompletableFuture<GooglePlayApplicationInfo> appInfoFuture = getGooglePlayApplicationInfoAsync("com.android.chrome", "en", "us");
+#### `GooglePlayCategory`
 
-        appInfoFuture.thenAccept(appInfo -> {
-            System.out.println("App Info: " + appInfo.getTitle());
-        }).exceptionally(throwable -> {
-            System.err.println("Error : " + throwable.getMessage());
-            return null;
-        });
+The `GooglePlayCategory` class represents a category on the Google Play Store with the following fields:
+
+- `name: String` - Name of the category
+- `id: String` - Unique identifier of the category
+
+## 📱 Aptoide Store
+
+### Aptoide Installation
+
+The Aptoide modules are available on Maven Central:
+
+#### Aptoide API Module
+
+For accessing the Aptoide API:
+
+##### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter.androidappstorekit.aptoide:api:<version>")
+}
+```
+
+#### Aptoide Core Module
+
+If you only need the model classes (like `AptoideApplicationInfo`) without the API client:
+
+##### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter.androidappstorekit.aptoide:core:<version>")
+}
+```
+
+### Aptoide Usage
+
+#### Fetching App Information from Aptoide
+
+To fetch detailed information about a specific app from Aptoide, you can use the `AptoideService` class. The class provides several methods to retrieve app information using different identifiers.
+
+##### Methods:
+
+###### `getAppMetaByPackageName`
+
+Fetches application metadata using the package name.
+
+**Parameters:**
+- `packageName: String` (mandatory): The package name of the application.
+- `language: String` (optional, default = "en"): Language code for the content localization.
+
+**Returns:** An instance of `AptoideApplicationInfo` containing the application's metadata.
+
+###### `getAppMetaById`
+
+Fetches application metadata using the app ID.
+
+**Parameters:**
+- `appId: Long` (mandatory): The ID of the application.
+- `language: String` (optional, default = "en"): Language code for the content localization.
+
+**Returns:** An instance of `AptoideApplicationInfo` containing the application's metadata.
+
+###### `getAppMetaByMd5sum`
+
+Fetches application metadata using the APK MD5 sum.
+
+**Parameters:**
+- `md5sum: String` (mandatory): The MD5 sum of the APK file.
+- `language: String` (optional, default = "en"): Language code for the content localization.
+
+**Returns:** An instance of `AptoideApplicationInfo` containing the application's metadata.
+
+##### Example:
+
+```kotlin
+fun main() {
+    val json = Json { prettyPrint = true }
+    val aptoideService = AptoideService()
+
+    runBlocking {
+        try {
+            // Fetch app metadata by package name
+            val appInfo = aptoideService.getAppMetaByPackageName("com.waze", "en")
+            println(json.encodeToString(appInfo))
+
+            // Fetch app metadata by app ID
+            val appInfoById = aptoideService.getAppMetaById(12345, "en")
+            println(json.encodeToString(appInfoById))
+
+            // Fetch app metadata by APK MD5 sum
+            val appInfoByMd5 = aptoideService.getAppMetaByMd5sum("abcdef1234567890abcdef1234567890", "en")
+            println(json.encodeToString(appInfoByMd5))
+
+        } catch (e: Exception) {
+            println("Error fetching app metadata: ${e.message}")
+            e.printStackTrace()
+        }
     }
 }
 ```
 
-## 🔗 Data Models
+### Aptoide Data Models
 
-The library uses the following primary data models:
+#### `AptoideApplicationInfo`
 
-### `GooglePlayApplicationInfo`
+The `AptoideApplicationInfo` class is a comprehensive data model that represents detailed information about an application on the Aptoide store. It contains the following fields:
 
-Represents detailed app information, including:
+- `id: Long` - Unique identifier of the application
+- `name: String` - Name of the application
+- `packageName: String` - Package name of the application
+- `uname: String` - Unique name of the application
+- `size: Long` - Size of the application in bytes
+- `icon: String` - URL to the application icon
+- `graphic: String` - URL to the application graphic
+- `added: String` - Date when the application was added
+- `modified: String` - Date when the application was last modified
+- `updated: String` - Date when the application was last updated
+- `main_package: String?` - Main package name if different
+- `age: AptoideAge` - Age rating information
+- `developer: AptoideDeveloper` - Developer information
+- `store: AptoideStore` - Store information
+- `file: AptoideFile` - File information
+- `media: AptoideMedia` - Media assets
+- `urls: AptoideUrls` - URLs related to the application
+- `stats: AptoideStats` - Statistics about the application
+- `aab: String?` - Android App Bundle information
+- `obb: String?` - OBB file information
+- `pay: String?` - Payment information
+- `appcoins: AptoideAppcoins` - AppCoins information
+- `soft_locks: List<String>` - Soft locks information
 
-- `title`: App title.
-- `description`: Plain text description of the app.
-- `score`: Overall rating score.
-- `categories`: List of `GooglePlayCategory` objects.
-- `developer`: Developer name.
-- `price`: App price.
-- and more.
+#### `AptoideAge`
 
-#### Example JSON Output
+The `AptoideAge` class contains age rating information with the following fields:
 
-Below is an example of the JSON output generated for an app:
+- `name: String` - Name of the age rating
+- `title: String` - Title of the age rating
+- `pegi: String` - PEGI rating
+- `rating: Int` - Numeric rating
 
-```json
-{
-    "title": "Google Chrome",
-    "description": "Google Chrome is a fast, easy to use, and secure web browser. Designed for Android, Chrome brings you personalized news articles, quick links to your favorite sites, downloads, and Google Search and Google Translate built-in. Download now to enjoy the same Chrome web browser experience you love across all your devices.\n        \n        <b>Browse fast and type less.</b> Choose from personalized search results that instantly appear as you type and quickly browse previously visited web pages. Fill in forms quickly with Autofill.\n        \n        <b>Incognito Browsing.</b> Use Incognito mode to browse the internet without saving your history. Browse privately across all your devices.\n        \n        <b>Access your Chrome across devices.</b> When you sign in to Chrome, you can save bookmarks, passwords and more in your Google Account, so you can access them on your other devices.\n        \n        <b>All your favorite content, one tap away.</b> Chrome is not just fast for Google Search, but designed so you are one tap away from all your favorite content. You can tap on your favorite news sites or social media directly from the new tab page. Chrome also has the “Tap to Search”- feature on most webpages. You can tap on any word or phrase to start a Google search while still in the page you are enjoying.\n        \n        <b>Protect your phone with Google Safe Browsing.</b> Chrome has Google Safe Browsing built-in. It keeps your phone safe by showing warnings to you when you attempt to navigate to dangerous sites or download dangerous files.\n        \n        <b>Fast downloads and view web pages and videos offline</b> Chrome has a dedicated download button, so you can easily download videos, pictures, and entire webpages with just one tap. Chrome also has downloads home right inside Chrome, where you can access all the content you downloaded, even when you are offline.\n        \n        <b>Google Voice Search.</b> Chrome gives you an actual web browser you can talk to. Use your voice to find answers on-the-go without typing and go hands free. You can browse and navigate quicker using your voice anywhere, anytime.\n        \n        <b>Google Translate built-in: Quickly translate entire web pages.</b> Chrome has Google Translate built in to help you to translate entire web to your own language with one tap.\n                \n        <b>Smart personalized recommendations.</b> Chrome creates an experience that is tailored to your interests.  On the new tab page, you will find articles that Chrome selected based on your previous browsing history.",
-    "descriptionHTML": "Google Chrome is a fast, easy to use, and secure web browser. Designed for Android, Chrome brings you personalized news articles, quick links to your favorite sites, downloads, and Google Search and Google Translate built-in. Download now to enjoy the same Chrome web browser experience you love across all your devices.<br>        <br>        <b>Browse fast and type less.</b> Choose from personalized search results that instantly appear as you type and quickly browse previously visited web pages. Fill in forms quickly with Autofill.<br>        <br>        <b>Incognito Browsing.</b> Use Incognito mode to browse the internet without saving your history. Browse privately across all your devices.<br>        <br>        <b>Access your Chrome across devices.</b> When you sign in to Chrome, you can save bookmarks, passwords and more in your Google Account, so you can access them on your other devices.<br>        <br>        <b>All your favorite content, one tap away.</b> Chrome is not just fast for Google Search, but designed so you are one tap away from all your favorite content. You can tap on your favorite news sites or social media directly from the new tab page. Chrome also has the “Tap to Search”- feature on most webpages. You can tap on any word or phrase to start a Google search while still in the page you are enjoying.<br>        <br>        <b>Protect your phone with Google Safe Browsing.</b> Chrome has Google Safe Browsing built-in. It keeps your phone safe by showing warnings to you when you attempt to navigate to dangerous sites or download dangerous files.<br>        <br>        <b>Fast downloads and view web pages and videos offline</b> Chrome has a dedicated download button, so you can easily download videos, pictures, and entire webpages with just one tap. Chrome also has downloads home right inside Chrome, where you can access all the content you downloaded, even when you are offline.<br>        <br>        <b>Google Voice Search.</b> Chrome gives you an actual web browser you can talk to. Use your voice to find answers on-the-go without typing and go hands free. You can browse and navigate quicker using your voice anywhere, anytime.<br>        <br>        <b>Google Translate built-in: Quickly translate entire web pages.</b> Chrome has Google Translate built in to help you to translate entire web to your own language with one tap.<br>                <br>        <b>Smart personalized recommendations.</b> Chrome creates an experience that is tailored to your interests.  On the new tab page, you will find articles that Chrome selected based on your previous browsing history.",
-    "summary": "Google's fast and secure browser",
-    "installs": "10,000,000,000+",
-    "minInstalls": 10000000000,
-    "realInstalls": 16985273589,
-    "score": 4.065567,
-    "ratings": 46344164,
-    "reviews": 992885,
-    "histogram": [
-        5920664,
-        2376727,
-        3450944,
-        5590747,
-        29005054
-    ],
-    "price": 0.0,
-    "free": true,
-    "currency": "USD",
-    "sale": false,
-    "saleTime": null,
-    "originalPrice": null,
-    "saleText": null,
-    "offersIAP": false,
-    "inAppProductPrice": "",
-    "developer": "Google LLC",
-    "developerId": "5700313618786177705",
-    "developerEmail": "apps-help@google.com",
-    "developerWebsite": "http://www.google.com/chrome/android",
-    "developerAddress": "1600 Amphitheatre Parkway, Mountain View 94043",
-    "privacyPolicy": "https://policies.google.com/privacy",
-    "genre": "Communication",
-    "genreId": "COMMUNICATION",
-    "categories": [
-        {
-            "name": "Communication",
-            "id": "COMMUNICATION"
-        }
-    ],
-    "icon": "https://play-lh.googleusercontent.com/QRRGW2tMZ4-FNw0XWk6WWiXHaQCGxuwM-92HrBhlA4WOd_AGmjVmQkiHyAqQjW2yByc",
-    "headerImage": "https://play-lh.googleusercontent.com/yZPtmF--wo_V78QRe00YWjnHBnTISZZJeSo4WbSsJpFBRI1MNsv6sN1UxRBIK6mbtQ",
-    "screenshots": [
-        "https://play-lh.googleusercontent.com/OMmJGYNXlDfnWFX8iS1Veq2hqYJAkp0KF4kjPMEBEkZN4KutaoGLooWJTB86kLyF55uy",
-        "https://play-lh.googleusercontent.com/xR_gxXoYDfTahDoexvHc0MB6kkydLLMSlUzshH2xu_5IsnFefSIgi5Bn4yOdgCNpRuWL",
-        "https://play-lh.googleusercontent.com/7_ksUyBu73YwRTelEGXzZeqWMNQOyXYWVzIwvWW0-Xyu4g5sOnhMdc4g-Y_u37z2ewI",
-        "https://play-lh.googleusercontent.com/_UizlCmKyFhS138Qeh3XXWvwatHa2j9cdAiFSN4FVU7wYP0qaF-Ci3_K-ZkAvhXx3Q",
-        "https://play-lh.googleusercontent.com/X_pt3f62938fqokgs44Ga1t8zX0kC0MPldi0qWKU95ivpTUPfawy9hxE5F9RGnf1Uko",
-        "https://play-lh.googleusercontent.com/BZwVMcpIt1gZZGe1X5gjKBdYmLrzgSD_cwKlKmJib8BV0lHPdlHly-9oEGm11VTr_iQ",
-        "https://play-lh.googleusercontent.com/yBJ1sGeM_eO8YfX-lqrNfPYIaswaC-dCw1csrZOyD6ITG7xfMqUq3nmgGNe_Hv1E4w",
-        "https://play-lh.googleusercontent.com/X9aG9oNn9zZbI36AVXnDqzuRQTcogbZKPLbLyWkbmQQy2j0CRizPZJX4Xz935USY-A8",
-        "https://play-lh.googleusercontent.com/KeG1x0bwnrev-FJbTjUBsENlNX87a_4vstaz5B7yuDXsrHivKfaQ87fhtNFKD0EjvR1l",
-        "https://play-lh.googleusercontent.com/CnkWLDYN25mQm_P1kZLcyKiZxnifwIEIg8KwrthG60dtjxeU8wzhCXazxw_yeslNMysD",
-        "https://play-lh.googleusercontent.com/M9ue_W7CxgXh9Po-9Caqmo6kzsNHucTZWp1zFf2exER8bo3TCNGXqMB_4otOyeocAJc",
-        "https://play-lh.googleusercontent.com/be88TX-_Gr--Wr6nhpTCU8RElea_WmWHVeQ3eF-90yongEe7hls4kI__QYeBSvE_0nA",
-        "https://play-lh.googleusercontent.com/xThFpJIuS_l-MrbK58eExZyJJRFxdCMNNomV9ZG2icN6aLtpjAWMAuYoLKG6FCB98zM",
-        "https://play-lh.googleusercontent.com/A5qQ08pUxADMCi3dupQ05glOPtpiGFw9KJK3NmyY2jJ3HomdaKr4ht2St8sQRqlCqRCs",
-        "https://play-lh.googleusercontent.com/9jgY1qGCai_9IlPGWGswh6_zD7lzdy_vdm8gYejPHOSVTR1kdFaiJrblwr_z_CaKWjC_",
-        "https://play-lh.googleusercontent.com/krpPF6UrPaNVRLqSWTsU5eHOJjCkftn9BVTyxv_UZPDjBw0rKyyDQfMrewcFjF6L2h0E",
-        "https://play-lh.googleusercontent.com/tpGGpOkZBtjHC_yf369GU3KbGT4rCvElpaI3R48pimj4T0ryrPdwhbOFrLPtQ3kXOKd9",
-        "https://play-lh.googleusercontent.com/HSJ2yPrJxQzJoaKXENj5heR_71PTHBMceoxgMZzVXcV58Y-lD-ol82cb7-tFUAYA2kY",
-        "https://play-lh.googleusercontent.com/ltw5iMf8UCQow68CRmLWk4QtJjrdfyHUoVMqFDZ1iBCJGJfvHow40_aGontjAC3fdg",
-        "https://play-lh.googleusercontent.com/-x_v44rm5o71w-uD8UuwuRCSNZ10OWqYqgj6wsKi0JkrEJwOlbTBSoJRvA3aCN6XYd4",
-        "https://play-lh.googleusercontent.com/WBDmwgh8MR4Cxyc9x5hkoRk--V23PFJDyE_eMdjAN039prqGgF9FEvl22beskx7pUler",
-        "https://play-lh.googleusercontent.com/dPVss_a3Z8gHV_TPicWNaNdY1brRePVQaBu2NQJoNrxeJ8RnhkWS4v0n_bSJGST1vA",
-        "https://play-lh.googleusercontent.com/xb295JCLDkRu1qlkhF4qiddCd4s5WlRnHXthUKQw2Tz_acYGdiqj6rxOo1tFQo59hQ",
-        "https://play-lh.googleusercontent.com/sJePeYjSItM3jOhcKrX9oW5Yot_7z6DnuJTSowlsbol10tS2gygZKGhM615EB_L4VA",
-        "https://play-lh.googleusercontent.com/w-_cjSD79Cbqf6IjYhxOOS11wHmZeKOtegM5cbKbBT7D0AHq-6DqRoqfKKVJG_WwWQ",
-        "https://play-lh.googleusercontent.com/fKYTjKsPHtBOgcGSFq_FdGCAuKZRY1UJysFO8SW2qN-keySJxTInTNOE5ebtOZ8rvw",
-        "https://play-lh.googleusercontent.com/bpyl4wtc00BxVcj-5UlkECqM7GyAFg6FWUYhToDGhqAuRt7d3d6Qi69mvC2d_kmrqAHP",
-        "https://play-lh.googleusercontent.com/zR7XKGrFBiTd2__1DvE7He1y2l33E4Tg-qHxfD8VKEvLCBgL4rbpadR7U5fELXb4rg",
-        "https://play-lh.googleusercontent.com/NHOqWWhRsfaUx0YF5R90oMv06dlcqKZuuMAvugw6vTvSy3qy-lRrDZQSJPlMj4Ou4J8",
-        "https://play-lh.googleusercontent.com/bRrZSOI9y2BkFvnVaRjK3Jzae26pwvdlNnBDrKCIUxCdD-uUu09HIMpwVad1TrZVKLQ",
-        "https://play-lh.googleusercontent.com/bVRRznZy7d05YJJCVu0lVEkeoslyGnic1mgfSXOI2nRBSzz1WJ2Qhjg-ArEFfzveMdkk",
-        "https://play-lh.googleusercontent.com/GVPTDqFYafYxIO9q_sdJHwGv0g4Vv0D2TPkjS9wroQ2elHct8mV1Rl_IWniqz2lYV1np"
-    ],
-    "video": "",
-    "videoImage": "",
-    "contentRating": "Everyone",
-    "contentRatingDescription": "",
-    "adSupported": false,
-    "containsAds": false,
-    "released": "Feb 7, 2012",
-    "updated": 1733436114,
-    "version": "Varies with device",
-    "comments": [],
-    "appId": "com.android.chrome",
-    "url": "https://play.google.com/store/apps/details?id=com.android.chrome&hl=en&gl=us"
-}
-```
+#### `AptoideDeveloper`
 
-### `GooglePlayCategory`
+The `AptoideDeveloper` class contains information about the developer with the following fields:
 
-Represents app categories with:
+- `id: Long` - Unique identifier of the developer
+- `name: String` - Name of the developer
+- `website: String` - Website of the developer
+- `email: String` - Email of the developer
+- `privacy: String?` - Privacy policy URL
 
-- `name`: Category name.
-- `id`: Category ID.
+#### `AptoideStore`
+
+The `AptoideStore` class contains information about the store with the following fields:
+
+- `id: Long` - Unique identifier of the store
+- `name: String` - Name of the store
+- `avatar: String` - URL to the store avatar
+- `appearance: AptoideAppearance` - Appearance information
+- `stats: AptoideStoreStats` - Statistics about the store
+
+#### `AptoideAppearance`
+
+The `AptoideAppearance` class contains information about the store appearance with the following fields:
+
+- `theme: String` - Theme of the store
+- `description: String` - Description of the store
+
+#### `AptoideStoreStats`
+
+The `AptoideStoreStats` class contains statistics about the store with the following fields:
+
+- `apps: Int` - Number of applications in the store
+- `subscribers: Int` - Number of subscribers to the store
+- `downloads: Int` - Number of downloads from the store
+
+#### `AptoideFile`
+
+The `AptoideFile` class contains information about the application file with the following fields:
+
+- `vername: String` - Version name
+- `vercode: Int` - Version code
+- `md5sum: String` - MD5 checksum
+- `filesize: Long` - File size in bytes
+- `signature: AptoideSignature` - Signature information
+- `added: String` - Date when the file was added
+- `path: String` - Path to the file
+- `path_alt: String` - Alternative path to the file
+- `hardware: AptoideHardware` - Hardware requirements
+- `malware: AptoideMalware` - Malware scanning information
+- `flags: AptoideFlags` - Flags information
+- `used_features: List<String>` - List of used features
+- `used_permissions: List<String>` - List of used permissions
+- `tags: List<String>` - List of tags
+
+#### `AptoideSignature`
+
+The `AptoideSignature` class contains signature information with the following fields:
+
+- `sha1: String` - SHA1 hash of the signature
+- `owner: String` - Owner of the signature
+
+#### `AptoideHardware`
+
+The `AptoideHardware` class contains hardware requirements with the following fields:
+
+- `sdk: Int` - Minimum SDK version
+- `screen: String` - Screen requirements
+- `gles: Int` - OpenGL ES version
+- `cpus: List<String>` - Supported CPUs
+- `densities: List<String>` - Supported screen densities
+- `dependencies: List<AptoideDependency>` - List of dependencies
+
+#### `AptoideDependency`
+
+The `AptoideDependency` class contains dependency information with the following fields:
+
+- `type: String` - Type of dependency
+- `level: String` - Level of dependency
+
+#### `AptoideMalware`
+
+The `AptoideMalware` class contains malware scanning information with the following fields:
+
+- `rank: String` - Malware rank
+- `reason: AptoideMalwareReason` - Reason for the malware rank
+- `added: String` - Date when the malware scan was added
+- `modified: String` - Date when the malware scan was modified
+
+#### `AptoideMalwareReason`
+
+The `AptoideMalwareReason` class contains the reason for the malware rank with the following fields:
+
+- `signature_validated: AptoideSignatureValidated` - Signature validation information
+
+#### `AptoideSignatureValidated`
+
+The `AptoideSignatureValidated` class contains signature validation information with the following fields:
+
+- `date: String` - Date of validation
+- `status: String` - Status of validation
+- `signature_from: String` - Source of the signature
+
+#### `AptoideFlags`
+
+The `AptoideFlags` class contains flags information with the following fields:
+
+- `votes: List<AptoideVote>` - List of votes
+
+#### `AptoideVote`
+
+The `AptoideVote` class contains vote information with the following fields:
+
+- `type: String` - Type of vote
+- `count: Int` - Number of votes
+
+#### `AptoideMedia`
+
+The `AptoideMedia` class contains media assets with the following fields:
+
+- `keywords: List<String>` - List of keywords
+- `description: String` - Description of the application
+- `summary: String` - Summary of the application
+- `news: String` - News about the application
+- `videos: List<AptoideVideo>` - List of videos
+- `screenshots: List<AptoideScreenshot>` - List of screenshots
+
+#### `AptoideVideo`
+
+The `AptoideVideo` class contains video information with the following fields:
+
+- `type: String` - Type of video
+- `url: String` - URL to the video
+
+#### `AptoideScreenshot`
+
+The `AptoideScreenshot` class contains screenshot information with the following fields:
+
+- `url: String` - URL to the screenshot
+- `height: Int` - Height of the screenshot
+- `width: Int` - Width of the screenshot
+
+#### `AptoideUrls`
+
+The `AptoideUrls` class contains URLs related to the application with the following fields:
+
+- `w: String` - Web URL
+- `m: String` - Mobile URL
+
+#### `AptoideStats`
+
+The `AptoideStats` class contains statistics about the application with the following fields:
+
+- `rating: AptoideRating` - Rating information
+- `prating: AptoideRating` - Previous rating information
+- `downloads: Int` - Number of downloads
+- `pdownloads: Int` - Previous number of downloads
+
+#### `AptoideRating`
+
+The `AptoideRating` class contains rating information with the following fields:
+
+- `avg: Double` - Average rating
+- `total: Int` - Total number of ratings
+- `votes: List<AptoideRatingVote>` - List of votes
+
+#### `AptoideRatingVote`
+
+The `AptoideRatingVote` class contains rating vote information with the following fields:
+
+- `value: Int` - Rating value
+- `count: Int` - Number of votes
+
+#### `AptoideAppcoins`
+
+The `AptoideAppcoins` class contains AppCoins information with the following fields:
+
+- `advertising: Boolean` - Whether the application supports AppCoins advertising
+- `billing: Boolean` - Whether the application supports AppCoins billing
+- `flags: List<String>` - List of AppCoins flags
+
+#### `AptoideResponse`
+
+The `AptoideResponse` class is the top-level response from the Aptoide API with the following fields:
+
+- `info: AptoideInfo` - Information about the response
+- `data: AptoideApplicationInfo` - Application information
+
+#### `AptoideInfo`
+
+The `AptoideInfo` class contains information about the response with the following fields:
+
+- `status: String` - Status of the response
+- `time: AptoideTime` - Time information
+
+#### `AptoideTime`
+
+The `AptoideTime` class contains time information with the following fields:
+
+- `seconds: Double` - Time in seconds
+- `human: String` - Human-readable time
 
 ## 💧 Configuration
 
 ### Logging
 
-The library includes a logger for debugging. You can customize or disable logging by modifying the `logger` instance in `NetworkUtils`.
+The library includes a logger for debugging. You can customize or disable logging by modifying the logger configuration.
 
 ### Network Configuration
 
-The library uses Ktor for network operations. Ensure your project includes the required dependencies for Ktor and that network permissions are properly configured for Android.
+The library uses Ktor for network operations. Since Ktor dependencies are configured as `compileOnly`, you need to include the following Ktor dependencies in your project:
+
+```kotlin
+// Ktor dependencies
+implementation("io.ktor:ktor-client-core:$ktor_version")
+implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+implementation("io.ktor:ktor-client-serialization:$ktor_version")
+implementation("io.ktor:ktor-client-logging:$ktor_version")
+implementation("io.ktor:ktor-client-cio:$ktor_version")
+```
+
+Also ensure that network permissions are properly configured for Android.
 
 ## 📚 Contributions
 
@@ -256,4 +525,4 @@ This library is licensed under the MIT License. See the LICENSE file for details
 
 The user assumes full responsibility for the use of this library and must verify the legality of such use in their country.
 
-This library is intended for educational and personal use. Scraping data from Google Play Store may violate its terms of service. Use responsibly and at your own risk.
+This library is intended for educational and personal use. Scraping data from app stores may violate their terms of service. Use responsibly and at your own risk.
