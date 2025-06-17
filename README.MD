@@ -1,6 +1,6 @@
-# 💡 GPlay Scrapper Library
+# 💡 AndroidAppStoreKit Library
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/gplayscrapper.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22gplayscrapper%22)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter.androidappstorekit/gplay.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter.androidappstorekit%22%20AND%20a:%22gplay%22)
 
 ## 📑 Table of Contents
 - [Introduction](#-introduction)
@@ -17,7 +17,7 @@
 
 This library is a full Kotlin adaptation of the [google-play-scraper](https://github.com/JoMingyu/google-play-scraper) python library.
 
-The GPlay Scrapper Library provides a comprehensive way to extract detailed information about applications listed on the Google Play Store. With this library, you can fetch details such as application descriptions, developer information, categories, reviews, and more.
+The AndroidAppStoreKit Library provides a comprehensive way to extract detailed information about applications listed on various app stores like Google Play Store and Aptoide. With this library, you can fetch details such as application descriptions, developer information, categories, reviews, and more.
 
 This library is built using Kotlin and leverages kotlinx.serialization for parsing JSON data and Ktor for HTTP requests.
 
@@ -37,7 +37,7 @@ This library is available on Maven Central. Add the following dependency to your
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter:gplayscrapper:<version>")
+    implementation("io.github.kdroidfilter.androidappstorekit.gplay:scrapper:<version>")
 }
 ```
 
@@ -45,7 +45,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation 'io.github.kdroidfilter:gplayscrapper:<version>'
+    implementation 'io.github.kdroidfilter.androidappstorekit.gplay:scrapper:<version>'
 }
 ```
 
@@ -57,7 +57,7 @@ If you only need the model classes (like `GooglePlayApplicationInfo` and `Google
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter:gplayscrapper-core:<version>")
+    implementation("io.github.kdroidfilter.androidappstorekit.gplay:core:<version>")
 }
 ```
 
@@ -65,7 +65,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation 'io.github.kdroidfilter:gplayscrapper-core:<version>'
+    implementation 'io.github.kdroidfilter.androidappstorekit.gplay:core:<version>'
 }
 ```
 

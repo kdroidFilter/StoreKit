@@ -92,7 +92,7 @@ mavenPublishing {
         name.set("Aptoide Core Library")
         description.set("Core module for Aptoide Library containing model classes")
         inceptionYear.set("2024")
-        url.set("https://github.com/kdroidFilter/GPlay-Scrapper")
+        url.set("https://github.com/kdroidFilter/AndroidAppStoreKit")
 
         licenses {
             license {
@@ -110,7 +110,7 @@ mavenPublishing {
         }
 
         scm {
-            url.set("https://github.com/kdroidFilter/GPlay-Scrapper")
+            url.set("https://github.com/kdroidFilter/AndroidAppStoreKit")
         }
     }
 

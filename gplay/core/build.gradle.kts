@@ -73,7 +73,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.kdroidfilter.androidappstorekit.gplay.scrapper.core"
+    namespace = "io.github.kdroidfilter.androidappstorekit.gplay.core"
     compileSdk = 35
 
     defaultConfig {
@@ -92,7 +92,7 @@ mavenPublishing {
         name.set("GPlay Scrapper Core Library")
         description.set("Core module for GPlay Scrapper Library containing model classes")
         inceptionYear.set("2024")
-        url.set("https://github.com/kdroidFilter/GPlay-Scrapper")
+        url.set("https://github.com/kdroidFilter/AndroidAppStoreKit")
 
         licenses {
             license {
@@ -110,7 +110,7 @@ mavenPublishing {
         }
 
         scm {
-            url.set("https://github.com/kdroidFilter/GPlay-Scrapper")
+            url.set("https://github.com/kdroidFilter/AndroidAppStoreKit")
         }
     }
 

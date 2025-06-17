@@ -119,7 +119,7 @@ android {
 
 mavenPublishing {
     coordinates(
-        groupId = "io.github.kdroidfilter.androidappstorekit.gplay.",
+        groupId = "io.github.kdroidfilter.androidappstorekit.gplay",
         artifactId = "scrapper",
         version = version.toString()
     )
@@ -128,7 +128,7 @@ mavenPublishing {
         name.set("GPlay Scrapper Library")
         description.set("GPlay Scrapper Library is a Kotlin library for extracting comprehensive app data from the Google Play Store.")
         inceptionYear.set("2024")
-        url.set("https://github.com/kdroidFilter/GPlay-Scrapper")
+        url.set("https://github.com/kdroidFilter/AndroidAppStoreKit")
 
         licenses {
             license {
@@ -146,7 +146,7 @@ mavenPublishing {
         }
 
         scm {
-            url.set("https://github.com/kdroidFilter/GPlay-Scrapper")
+            url.set("https://github.com/kdroidFilter/AndroidAppStoreKit")
         }
     }
 

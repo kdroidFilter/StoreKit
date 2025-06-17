@@ -61,11 +61,11 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.kotlinx.serialization.json)
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.client.serialization)
-            implementation(libs.ktor.client.logging)
-            implementation(libs.ktor.client.cio)
+            compileOnly(libs.ktor.client.core)
+            compileOnly(libs.ktor.client.content.negotiation)
+            compileOnly(libs.ktor.client.serialization)
+            compileOnly(libs.ktor.client.logging)
+            compileOnly(libs.ktor.client.cio)
             implementation(libs.kotlin.logging)
         }
 
@@ -113,14 +113,14 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.kdroidfilter.androidappstorekit.aptoide",
         artifactId = "api",
-        version = version.toString()
+        version = version
     )
 
     pom {
         name.set("Aptoide Library")
         description.set("Aptoide Library is a Kotlin library for extracting comprehensive app data from the Aptoide API.")
         inceptionYear.set("2024")
-        url.set("https://github.com/kdroidFilter/GPlay-Scrapper")
+        url.set("https://github.com/kdroidFilter/AndroidAppStoreKit")
 
         licenses {
             license {
@@ -138,7 +138,7 @@ mavenPublishing {
         }
 
         scm {
-            url.set("https://github.com/kdroidFilter/GPlay-Scrapper")
+            url.set("https://github.com/kdroidFilter/AndroidAppStoreKit")
         }
     }
 
