@@ -30,3 +30,5 @@ dependencyResolutionManagement {
 }
 include(":gplayscrapper")
 include(":core")
+include(":aptoide")
+include(":aptoide-core")
