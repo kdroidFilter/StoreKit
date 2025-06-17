@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.vannitktech.maven.publish)
 }
 
-group = "io.github.kdroidfilter.androidappstorekit.gplay"
+group = "io.github.kdroidfilter.androidappstorekit"
 val ref = System.getenv("GITHUB_REF") ?: ""
 val version = if (ref.startsWith("refs/tags/")) {
     val tag = ref.removePrefix("refs/tags/")
