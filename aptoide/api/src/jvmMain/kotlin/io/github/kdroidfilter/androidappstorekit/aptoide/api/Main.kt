@@ -12,7 +12,7 @@ fun main() {
     runBlocking {
         try {
             // Fetch app metadata for Aptoide app
-            val appInfo = aptoideService.getAppMetaByPackageName("com.waze", "eb")
+            val appInfo = aptoideService.getAppMetaByPackageName("com.google.android.gms", "en")
             val json = Json { prettyPrint = true }.encodeToString(appInfo)
             println("$json")
             
