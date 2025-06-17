@@ -117,7 +117,7 @@ mavenPublishing {
         name.set("Aptoide API Library")
         description.set("Aptoide Library is a Kotlin library for extracting comprehensive app data from the Aptoide API.")
         inceptionYear.set("2024")
-        url.set("https://github.com/kdroidFilter/AndroidAppStoreKit")
+        url.set("https://github.com/kdroidFilter/GPlayScraper/")
 
         licenses {
             license {
@@ -135,7 +135,7 @@ mavenPublishing {
         }
 
         scm {
-            url.set("https://github.com/kdroidFilter/AndroidAppStoreKit")
+            url.set("https://github.com/kdroidFilter/GPlayScraper/")
         }
     }
 
