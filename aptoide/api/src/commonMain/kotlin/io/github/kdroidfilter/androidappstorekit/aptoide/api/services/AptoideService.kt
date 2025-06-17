@@ -17,17 +17,27 @@ import kotlinx.serialization.json.Json
  * A service class for interacting with the Aptoide API.
  * This class provides methods to fetch app metadata from the Aptoide API.
  */
-class AptoideService {
+open class AptoideService {
     private val logger = KotlinLogging.logger {}
-    private val client = HttpClient(CIO) {
-        install(Logging) {
-            level = LogLevel.INFO
-        }
-    }
+    private val client by lazy { getHttpClient() }
 
     private val json = Json {
         ignoreUnknownKeys = true
         coerceInputValues = true
+    }
+
+    /**
+     * Returns the HTTP client used for API requests.
+     * This method can be overridden in tests to provide a mock client.
+     *
+     * @return The HTTP client instance.
+     */
+    protected open fun getHttpClient(): HttpClient {
+        return HttpClient(CIO) {
+            install(Logging) {
+                level = LogLevel.INFO
+            }
+        }
     }
 
     /**

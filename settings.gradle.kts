@@ -32,4 +32,4 @@ include(":gplay:scrapper")
 include(":gplay:core")
 include(":aptoide:core")
 include(":aptoide:api")
-
+include(":sample")

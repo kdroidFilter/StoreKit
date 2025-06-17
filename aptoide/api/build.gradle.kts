@@ -73,6 +73,15 @@ kotlin {
             implementation(kotlin("test"))
         }
 
+        jvmTest.dependencies {
+            implementation("io.ktor:ktor-client-mock:${libs.versions.ktor.get()}")
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.serialization)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.client.cio)
+        }
+
         nativeMain.dependencies {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)
