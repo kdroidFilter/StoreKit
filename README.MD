@@ -242,7 +242,18 @@ The library includes a logger for debugging. You can customize or disable loggin
 
 ### Network Configuration
 
-The library uses Ktor for network operations. Ensure your project includes the required dependencies for Ktor and that network permissions are properly configured for Android.
+The library uses Ktor for network operations. Since Ktor dependencies are configured as `compileOnly`, you need to include the following Ktor dependencies in your project:
+
+```kotlin
+// Ktor dependencies
+implementation("io.ktor:ktor-client-core:$ktor_version")
+implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+implementation("io.ktor:ktor-client-serialization:$ktor_version")
+implementation("io.ktor:ktor-client-logging:$ktor_version")
+implementation("io.ktor:ktor-client-cio:$ktor_version")
+```
+
+Also ensure that network permissions are properly configured for Android.
 
 ## 📚 Contributions
 
