@@ -83,14 +83,14 @@ android {
 
 mavenPublishing {
     coordinates(
-        groupId = "io.github.kdroidfilter.androidappstorekit.gplay",
-        artifactId = "core",
+        groupId = group.toString(),
+        artifactId = "gplay-core",
         version = version.toString()
     )
 
     pom {
-        name.set("GPlay Scrapper Core Library")
-        description.set("Core module for GPlay Scrapper Library containing model classes")
+        name.set("GPlay Core Library")
+        description.set("Core module for GPlay Library containing model classes")
         inceptionYear.set("2024")
         url.set("https://github.com/kdroidFilter/AndroidAppStoreKit")
 

@@ -115,8 +115,8 @@ android {
 
 mavenPublishing {
     coordinates(
-        groupId = "io.github.kdroidfilter.androidappstorekit.gplay",
-        artifactId = "scrapper",
+        groupId = group.toString(),
+        artifactId = "gplay-scrapper",
         version = version.toString()
     )
 

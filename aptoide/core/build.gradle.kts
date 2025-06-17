@@ -83,8 +83,8 @@ android {
 
 mavenPublishing {
     coordinates(
-        groupId = "io.github.kdroidfilter.androidappstorekit.aptoide",
-        artifactId = "core",
+        groupId = group.toString(),
+        artifactId = "aptoide-core",
         version = version.toString()
     )
 

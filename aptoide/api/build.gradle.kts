@@ -108,13 +108,13 @@ android {
 
 mavenPublishing {
     coordinates(
-        groupId = "io.github.kdroidfilter.androidappstorekit.aptoide",
-        artifactId = "api",
+        groupId = group.toString(),
+        artifactId = "aptoide-api",
         version = version
     )
 
     pom {
-        name.set("Aptoide Library")
+        name.set("Aptoide API Library")
         description.set("Aptoide Library is a Kotlin library for extracting comprehensive app data from the Aptoide API.")
         inceptionYear.set("2024")
         url.set("https://github.com/kdroidFilter/AndroidAppStoreKit")
