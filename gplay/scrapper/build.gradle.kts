@@ -8,7 +8,7 @@ plugins {
 
 }
 
-group = "io.github.kdroidfilter.androidappstorekit"
+group = "io.github.kdroidfilter.storekit"
 val ref = System.getenv("GITHUB_REF") ?: ""
 val version = if (ref.startsWith("refs/tags/")) {
     val tag = ref.removePrefix("refs/tags/")
