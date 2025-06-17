@@ -1,4 +1,4 @@
-rootProject.name = "GPlay-Scrapper"
+rootProject.name = "AndroidAppStoreKit"
 
 pluginManagement {
     repositories {
@@ -28,7 +28,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-include(":gplayscrapper")
-include(":core")
-include(":aptoide")
-include(":aptoide-core")
+include(":gplay:scrapper")
+include(":gplay:core")
+include(":aptoide:core")
+include(":aptoide:api")
