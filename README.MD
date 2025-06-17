@@ -5,15 +5,14 @@
 ## 📑 Table of Contents
 - [Introduction](#-introduction)
 - [Features](#-features)
-- [Installation](#-installation)
-  - [Google Play Modules](#google-play-modules)
-  - [Aptoide Modules](#aptoide-modules)
-- [Usage](#-usage)
-  - [Google Play Store](#google-play-store)
-  - [Aptoide Store](#aptoide-store)
-- [Data Models](#-data-models)
-  - [Google Play Models](#google-play-models)
-  - [Aptoide Models](#aptoide-models)
+- [Google Play Store](#-google-play-store)
+  - [Installation](#google-play-installation)
+  - [Usage](#google-play-usage)
+  - [Data Models](#google-play-data-models)
+- [Aptoide Store](#-aptoide-store)
+  - [Installation](#aptoide-installation)
+  - [Usage](#aptoide-usage)
+  - [Data Models](#aptoide-data-models)
 - [Configuration](#-configuration)
 - [Contributions](#-contributions)
 - [License](#-license)
@@ -38,11 +37,11 @@ This library is built using Kotlin Multiplatform and leverages kotlinx.serializa
 - **Cross-platform**: Works on Android, iOS, JVM, and other platforms supported by Kotlin Multiplatform
 - **Modular architecture**: Use only the modules you need for your specific use case
 
-## 📦 Installation
+## 🔍 Google Play Store
 
-The library is available on Maven Central and is organized into several modules:
+### Google Play Installation
 
-### Google Play Modules
+The Google Play modules are available on Maven Central:
 
 #### Google Play Scraper Module
 
@@ -68,35 +67,7 @@ dependencies {
 }
 ```
 
-### Aptoide Modules
-
-#### Aptoide API Module
-
-For accessing the Aptoide API:
-
-##### Gradle Kotlin DSL
-
-```kotlin
-dependencies {
-    implementation("io.github.kdroidfilter.androidappstorekit.aptoide:api:<version>")
-}
-```
-
-#### Aptoide Core Module
-
-If you only need the model classes (like `AptoideApplicationInfo`) without the API client:
-
-##### Gradle Kotlin DSL
-
-```kotlin
-dependencies {
-    implementation("io.github.kdroidfilter.androidappstorekit.aptoide:core:<version>")
-}
-```
-
-## 🔄 Usage
-
-### Google Play Store
+### Google Play Usage
 
 #### Fetching App Information from Google Play
 
@@ -126,39 +97,7 @@ fun main() {
 }
 ```
 
-### Aptoide Store
-
-#### Fetching App Information from Aptoide
-
-To fetch detailed information about a specific app from Aptoide, you can use the `AptoideService` class.
-
-##### Example:
-
-```kotlin
-fun main() {
-    val json = Json { prettyPrint = true }
-    val aptoideService = AptoideService()
-    
-    runBlocking {
-        try {
-            // Fetch app metadata by package name
-            // The second parameter is the store name (e.g., "eb" for the main Aptoide store)
-            val appInfo = aptoideService.getAppMetaByPackageName("com.waze", "eb")
-            println(json.encodeToString(appInfo))
-            
-        } catch (e: Exception) {
-            println("Error fetching app metadata: ${e.message}")
-            e.printStackTrace()
-        }
-    }
-}
-```
-
-## 🔗 Data Models
-
-The library provides data models for both Google Play Store and Aptoide.
-
-### Google Play Models
+### Google Play Data Models
 
 #### `GooglePlayApplicationInfo`
 
@@ -216,7 +155,65 @@ The `GooglePlayCategory` class represents a category on the Google Play Store wi
 - `name: String` - Name of the category
 - `id: String` - Unique identifier of the category
 
-### Aptoide Models
+## 📱 Aptoide Store
+
+### Aptoide Installation
+
+The Aptoide modules are available on Maven Central:
+
+#### Aptoide API Module
+
+For accessing the Aptoide API:
+
+##### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter.androidappstorekit.aptoide:api:<version>")
+}
+```
+
+#### Aptoide Core Module
+
+If you only need the model classes (like `AptoideApplicationInfo`) without the API client:
+
+##### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter.androidappstorekit.aptoide:core:<version>")
+}
+```
+
+### Aptoide Usage
+
+#### Fetching App Information from Aptoide
+
+To fetch detailed information about a specific app from Aptoide, you can use the `AptoideService` class.
+
+##### Example:
+
+```kotlin
+fun main() {
+    val json = Json { prettyPrint = true }
+    val aptoideService = AptoideService()
+    
+    runBlocking {
+        try {
+            // Fetch app metadata by package name
+            // The second parameter is the store name (e.g., "eb" for the main Aptoide store)
+            val appInfo = aptoideService.getAppMetaByPackageName("com.waze", "eb")
+            println(json.encodeToString(appInfo))
+            
+        } catch (e: Exception) {
+            println("Error fetching app metadata: ${e.message}")
+            e.printStackTrace()
+        }
+    }
+}
+```
+
+### Aptoide Data Models
 
 #### `AptoideApplicationInfo`
 
