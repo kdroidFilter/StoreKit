@@ -1,5 +1,18 @@
 # 💡 GPlay Scrapper Library
 
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/gplayscrapper.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22gplayscrapper%22)
+
+## 📑 Table of Contents
+- [Introduction](#-introduction)
+- [Features](#-features)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Data Models](#-data-models)
+- [Configuration](#-configuration)
+- [Contributions](#-contributions)
+- [License](#-license)
+- [Disclaimer](#-disclaimer)
+
 ## 🔄 Introduction
 
 This library is a full Kotlin adaptation of the [google-play-scraper](https://github.com/JoMingyu/google-play-scraper) python library.
