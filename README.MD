@@ -56,7 +56,6 @@ dependencies {
 }
 ```
 
-
 #### Google Play Core Module
 
 If you only need the model classes (like `GooglePlayApplicationInfo` and `GooglePlayCategory`) without the scraping functionality:
@@ -163,99 +162,299 @@ The library provides data models for both Google Play Store and Aptoide.
 
 #### `GooglePlayApplicationInfo`
 
-Represents detailed app information from Google Play, including:
+The `GooglePlayApplicationInfo` class is a comprehensive data model that represents detailed information about an application on the Google Play Store. It contains the following fields:
 
-- `title`: App title
-- `description`: Plain text description of the app
-- `score`: Overall rating score
-- `categories`: List of `GooglePlayCategory` objects
-- `developer`: Developer name
-- `price`: App price
-- and more
-
-##### Example JSON Output (Google Play)
-
-```json
-{
-    "title": "Google Chrome",
-    "summary": "Google's fast and secure browser",
-    "installs": "10,000,000,000+",
-    "minInstalls": 10000000000,
-    "score": 4.065567,
-    "ratings": 46344164,
-    "reviews": 992885,
-    "price": 0.0,
-    "free": true,
-    "currency": "USD",
-    "developer": "Google LLC",
-    "developerId": "5700313618786177705",
-    "developerEmail": "apps-help@google.com",
-    "developerWebsite": "http://www.google.com/chrome/android",
-    "genre": "Communication",
-    "genreId": "COMMUNICATION",
-    "icon": "https://play-lh.googleusercontent.com/QRRGW2tMZ4-FNw0XWk6WWiXHaQCGxuwM-92HrBhlA4WOd_AGmjVmQkiHyAqQjW2yByc",
-    "appId": "com.android.chrome",
-    "url": "https://play.google.com/store/apps/details?id=com.android.chrome&hl=en&gl=us"
-}
-```
+- `title: String` - The title/name of the application
+- `description: String` - Plain text description of the application
+- `descriptionHTML: String` - HTML-formatted description of the application
+- `summary: String` - A short summary of the application
+- `installs: String` - Number of installs as a formatted string (e.g., "10,000,000+")
+- `minInstalls: Long` - Minimum number of installs as a numeric value
+- `realInstalls: Long` - Estimated real number of installs
+- `score: Double` - Overall rating score (0.0 to 5.0)
+- `ratings: Long` - Total number of ratings
+- `reviews: Long` - Total number of reviews
+- `histogram: List<Long>` - Distribution of ratings (1-5 stars)
+- `price: Double` - Price of the application in the specified currency
+- `free: Boolean` - Whether the application is free
+- `currency: String` - Currency code for the price (e.g., "USD")
+- `sale: Boolean` - Whether the application is on sale
+- `saleTime: Long?` - Duration of the sale in milliseconds
+- `originalPrice: Double?` - Original price before the sale
+- `saleText: String?` - Text describing the sale
+- `offersIAP: Boolean` - Whether the application offers in-app purchases
+- `inAppProductPrice: String` - Price range for in-app purchases
+- `developer: String` - Name of the developer
+- `developerId: String` - Unique identifier of the developer
+- `developerEmail: String` - Contact email of the developer
+- `developerWebsite: String` - Website of the developer
+- `developerAddress: String` - Physical address of the developer
+- `privacyPolicy: String` - URL to the privacy policy
+- `genre: String` - Primary genre of the application
+- `genreId: String` - Identifier of the primary genre
+- `categories: List<GooglePlayCategory>` - List of categories the application belongs to
+- `icon: String` - URL to the application icon
+- `headerImage: String` - URL to the header image
+- `screenshots: List<String>` - URLs to the application screenshots
+- `video: String` - URL to the promotional video
+- `videoImage: String` - URL to the video thumbnail
+- `contentRating: String` - Content rating (e.g., "Everyone", "Teen")
+- `contentRatingDescription: String` - Description of the content rating
+- `adSupported: Boolean` - Whether the application is supported by ads
+- `containsAds: Boolean` - Whether the application contains ads
+- `released: String` - Release date of the application
+- `updated: Long` - Last update timestamp
+- `version: String` - Current version of the application
+- `comments: List<String>` - List of user comments
+- `appId: String` - Unique identifier of the application
+- `url: String` - URL to the application's page on Google Play
 
 #### `GooglePlayCategory`
 
-Represents app categories with:
+The `GooglePlayCategory` class represents a category on the Google Play Store with the following fields:
 
-- `name`: Category name
-- `id`: Category ID
+- `name: String` - Name of the category
+- `id: String` - Unique identifier of the category
 
 ### Aptoide Models
 
 #### `AptoideApplicationInfo`
 
-Represents detailed app information from Aptoide, including:
+The `AptoideApplicationInfo` class is a comprehensive data model that represents detailed information about an application on the Aptoide store. It contains the following fields:
 
-- `id`: App ID
-- `name`: App name
-- `packageName`: Package name
-- `size`: App size in bytes
-- `icon`: URL to the app icon
-- `developer`: Developer information
-- `stats`: App statistics (ratings, downloads)
-- `media`: App media (screenshots, videos)
-- and more
+- `id: Long` - Unique identifier of the application
+- `name: String` - Name of the application
+- `packageName: String` - Package name of the application
+- `uname: String` - Unique name of the application
+- `size: Long` - Size of the application in bytes
+- `icon: String` - URL to the application icon
+- `graphic: String` - URL to the application graphic
+- `added: String` - Date when the application was added
+- `modified: String` - Date when the application was last modified
+- `updated: String` - Date when the application was last updated
+- `main_package: String?` - Main package name if different
+- `age: AptoideAge` - Age rating information
+- `developer: AptoideDeveloper` - Developer information
+- `store: AptoideStore` - Store information
+- `file: AptoideFile` - File information
+- `media: AptoideMedia` - Media assets
+- `urls: AptoideUrls` - URLs related to the application
+- `stats: AptoideStats` - Statistics about the application
+- `aab: String?` - Android App Bundle information
+- `obb: String?` - OBB file information
+- `pay: String?` - Payment information
+- `appcoins: AptoideAppcoins` - AppCoins information
+- `soft_locks: List<String>` - Soft locks information
 
-##### Example JSON Output (Aptoide)
+#### `AptoideAge`
 
-```json
-{
-  "id": 12345,
-  "name": "Waze",
-  "package": "com.waze",
-  "size": 15000000,
-  "icon": "https://cdn.aptoide.com/imgs/w/a/z/waze.png",
-  "developer": {
-    "id": 123,
-    "name": "Waze Inc.",
-    "website": "https://www.waze.com",
-    "email": "support@waze.com"
-  },
-  "stats": {
-    "rating": {
-      "avg": 4.5,
-      "total": 10000
-    },
-    "downloads": 5000000
-  },
-  "media": {
-    "description": "Waze is a GPS navigation software app...",
-    "screenshots": [
-      {
-        "url": "https://cdn.aptoide.com/screenshots/waze1.jpg",
-        "height": 1920,
-        "width": 1080
-      }
-    ]
-  }
-}
-```
+The `AptoideAge` class contains age rating information with the following fields:
+
+- `name: String` - Name of the age rating
+- `title: String` - Title of the age rating
+- `pegi: String` - PEGI rating
+- `rating: Int` - Numeric rating
+
+#### `AptoideDeveloper`
+
+The `AptoideDeveloper` class contains information about the developer with the following fields:
+
+- `id: Long` - Unique identifier of the developer
+- `name: String` - Name of the developer
+- `website: String` - Website of the developer
+- `email: String` - Email of the developer
+- `privacy: String?` - Privacy policy URL
+
+#### `AptoideStore`
+
+The `AptoideStore` class contains information about the store with the following fields:
+
+- `id: Long` - Unique identifier of the store
+- `name: String` - Name of the store
+- `avatar: String` - URL to the store avatar
+- `appearance: AptoideAppearance` - Appearance information
+- `stats: AptoideStoreStats` - Statistics about the store
+
+#### `AptoideAppearance`
+
+The `AptoideAppearance` class contains information about the store appearance with the following fields:
+
+- `theme: String` - Theme of the store
+- `description: String` - Description of the store
+
+#### `AptoideStoreStats`
+
+The `AptoideStoreStats` class contains statistics about the store with the following fields:
+
+- `apps: Int` - Number of applications in the store
+- `subscribers: Int` - Number of subscribers to the store
+- `downloads: Int` - Number of downloads from the store
+
+#### `AptoideFile`
+
+The `AptoideFile` class contains information about the application file with the following fields:
+
+- `vername: String` - Version name
+- `vercode: Int` - Version code
+- `md5sum: String` - MD5 checksum
+- `filesize: Long` - File size in bytes
+- `signature: AptoideSignature` - Signature information
+- `added: String` - Date when the file was added
+- `path: String` - Path to the file
+- `path_alt: String` - Alternative path to the file
+- `hardware: AptoideHardware` - Hardware requirements
+- `malware: AptoideMalware` - Malware scanning information
+- `flags: AptoideFlags` - Flags information
+- `used_features: List<String>` - List of used features
+- `used_permissions: List<String>` - List of used permissions
+- `tags: List<String>` - List of tags
+
+#### `AptoideSignature`
+
+The `AptoideSignature` class contains signature information with the following fields:
+
+- `sha1: String` - SHA1 hash of the signature
+- `owner: String` - Owner of the signature
+
+#### `AptoideHardware`
+
+The `AptoideHardware` class contains hardware requirements with the following fields:
+
+- `sdk: Int` - Minimum SDK version
+- `screen: String` - Screen requirements
+- `gles: Int` - OpenGL ES version
+- `cpus: List<String>` - Supported CPUs
+- `densities: List<String>` - Supported screen densities
+- `dependencies: List<AptoideDependency>` - List of dependencies
+
+#### `AptoideDependency`
+
+The `AptoideDependency` class contains dependency information with the following fields:
+
+- `type: String` - Type of dependency
+- `level: String` - Level of dependency
+
+#### `AptoideMalware`
+
+The `AptoideMalware` class contains malware scanning information with the following fields:
+
+- `rank: String` - Malware rank
+- `reason: AptoideMalwareReason` - Reason for the malware rank
+- `added: String` - Date when the malware scan was added
+- `modified: String` - Date when the malware scan was modified
+
+#### `AptoideMalwareReason`
+
+The `AptoideMalwareReason` class contains the reason for the malware rank with the following fields:
+
+- `signature_validated: AptoideSignatureValidated` - Signature validation information
+
+#### `AptoideSignatureValidated`
+
+The `AptoideSignatureValidated` class contains signature validation information with the following fields:
+
+- `date: String` - Date of validation
+- `status: String` - Status of validation
+- `signature_from: String` - Source of the signature
+
+#### `AptoideFlags`
+
+The `AptoideFlags` class contains flags information with the following fields:
+
+- `votes: List<AptoideVote>` - List of votes
+
+#### `AptoideVote`
+
+The `AptoideVote` class contains vote information with the following fields:
+
+- `type: String` - Type of vote
+- `count: Int` - Number of votes
+
+#### `AptoideMedia`
+
+The `AptoideMedia` class contains media assets with the following fields:
+
+- `keywords: List<String>` - List of keywords
+- `description: String` - Description of the application
+- `summary: String` - Summary of the application
+- `news: String` - News about the application
+- `videos: List<AptoideVideo>` - List of videos
+- `screenshots: List<AptoideScreenshot>` - List of screenshots
+
+#### `AptoideVideo`
+
+The `AptoideVideo` class contains video information with the following fields:
+
+- `type: String` - Type of video
+- `url: String` - URL to the video
+
+#### `AptoideScreenshot`
+
+The `AptoideScreenshot` class contains screenshot information with the following fields:
+
+- `url: String` - URL to the screenshot
+- `height: Int` - Height of the screenshot
+- `width: Int` - Width of the screenshot
+
+#### `AptoideUrls`
+
+The `AptoideUrls` class contains URLs related to the application with the following fields:
+
+- `w: String` - Web URL
+- `m: String` - Mobile URL
+
+#### `AptoideStats`
+
+The `AptoideStats` class contains statistics about the application with the following fields:
+
+- `rating: AptoideRating` - Rating information
+- `prating: AptoideRating` - Previous rating information
+- `downloads: Int` - Number of downloads
+- `pdownloads: Int` - Previous number of downloads
+
+#### `AptoideRating`
+
+The `AptoideRating` class contains rating information with the following fields:
+
+- `avg: Double` - Average rating
+- `total: Int` - Total number of ratings
+- `votes: List<AptoideRatingVote>` - List of votes
+
+#### `AptoideRatingVote`
+
+The `AptoideRatingVote` class contains rating vote information with the following fields:
+
+- `value: Int` - Rating value
+- `count: Int` - Number of votes
+
+#### `AptoideAppcoins`
+
+The `AptoideAppcoins` class contains AppCoins information with the following fields:
+
+- `advertising: Boolean` - Whether the application supports AppCoins advertising
+- `billing: Boolean` - Whether the application supports AppCoins billing
+- `flags: List<String>` - List of AppCoins flags
+
+#### `AptoideResponse`
+
+The `AptoideResponse` class is the top-level response from the Aptoide API with the following fields:
+
+- `info: AptoideInfo` - Information about the response
+- `data: AptoideApplicationInfo` - Application information
+
+#### `AptoideInfo`
+
+The `AptoideInfo` class contains information about the response with the following fields:
+
+- `status: String` - Status of the response
+- `time: AptoideTime` - Time information
+
+#### `AptoideTime`
+
+The `AptoideTime` class contains time information with the following fields:
+
+- `seconds: Double` - Time in seconds
+- `human: String` - Human-readable time
 
 ## 💧 Configuration
 
