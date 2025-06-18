@@ -109,7 +109,7 @@ android {
 mavenPublishing {
     coordinates(
         groupId = "io.github.kdroidfilter",
-        artifactId = "storekit-aptoide.-pi",
+        artifactId = "storekit-aptoide-api",
         version = version.toString()
     )
 
@@ -121,7 +121,7 @@ mavenPublishing {
 
         licenses {
             license {
-                name.set("MIT")
+                name.set("MIT License")
                 url.set("https://opensource.org/licenses/MIT")
             }
         }
@@ -135,6 +135,8 @@ mavenPublishing {
         }
 
         scm {
+            connection.set("scm:git:git://github.com/kdroidFilter/GPlayScraper.git")
+            developerConnection.set("scm:git:ssh://git@github.com:kdroidFilter/GPlayScraper.git")
             url.set("https://github.com/kdroidFilter/GPlayScraper/")
         }
     }
