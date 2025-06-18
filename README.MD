@@ -45,6 +45,8 @@ The Google Play modules are available on Maven Central:
 
 #### Google Play Scraper Module
 
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-gplay-scrapper.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-gplay-scrapper%22)
+
 For scraping data from the Google Play Store:
 
 ##### Gradle Kotlin DSL
@@ -56,6 +58,8 @@ dependencies {
 ```
 
 #### Google Play Core Module
+
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-gplay-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-gplay-core%22)
 
 If you only need the model classes (like `GooglePlayApplicationInfo` and `GooglePlayCategory`) without the scraping functionality:
 
@@ -163,6 +167,8 @@ The Aptoide modules are available on Maven Central:
 
 #### Aptoide API Module
 
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-aptoide-api.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-aptoide-api%22)
+
 For accessing the Aptoide API:
 
 ##### Gradle Kotlin DSL
@@ -174,6 +180,8 @@ dependencies {
 ```
 
 #### Aptoide Core Module
+
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-aptoide-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-aptoide-core%22)
 
 If you only need the model classes (like `AptoideApplicationInfo`) without the API client:
 
