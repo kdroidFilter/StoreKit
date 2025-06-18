@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.vannitktech.maven.publish)
 }
 
-group = "io.github.kdroidfilter.storekit.aptoide.api"
+group = "io.github.kdroidfilter.storekit.signature"
 val ref = System.getenv("GITHUB_REF") ?: ""
 val version = if (ref.startsWith("refs/tags/")) {
     val tag = ref.removePrefix("refs/tags/")
@@ -22,66 +22,49 @@ kotlin {
 
     jvm()
 
-
     sourceSets {
         commonMain.dependencies {
-            api(project(":aptoide:core"))
-            implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.kotlinx.coroutines.test)
             implementation(libs.kotlinx.serialization.json)
-            compileOnly(libs.ktor.client.core)
-            compileOnly(libs.ktor.client.content.negotiation)
-            compileOnly(libs.ktor.client.serialization)
-            compileOnly(libs.ktor.client.logging)
-            compileOnly(libs.ktor.client.cio)
-            implementation(libs.kotlin.logging)
+        }
+
+        androidMain.dependencies {
+            // Android-specific dependencies for signature extraction
         }
 
         commonTest.dependencies {
             implementation(kotlin("test"))
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.client.serialization)
-            implementation(libs.ktor.client.logging)
-            implementation(libs.ktor.client.cio)
         }
-
-
-        androidMain.dependencies {
-            implementation(libs.kotlinx.coroutines.android)
-        }
-
-        jvmMain.dependencies {
-            implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.slf4j.simple)
-        }
-    }
-
-    //https://kotlinlang.org/docs/native-objc-interop.html#export-of-kdoc-comments-to-generated-objective-c-headers
-    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
-        compilations["main"].compilerOptions.options.freeCompilerArgs.add("-Xexport-kdoc")
     }
 }
 
 android {
-    namespace = "io.github.kdroidfilter.storekit.aptoide.api"
+    namespace = "io.github.kdroidfilter.storekit.signature"
     compileSdk = 35
 
     defaultConfig {
         minSdk = 21
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    dependencies {
+        androidTestImplementation("androidx.test:core:1.6.1")
+        androidTestImplementation("androidx.test:runner:1.6.2")
+        androidTestImplementation("androidx.test:rules:1.6.1")
+        androidTestImplementation("androidx.test.ext:junit:1.2.1")
+        androidTestImplementation(libs.junit.junit)
     }
 }
 
 mavenPublishing {
     coordinates(
         groupId = "io.github.kdroidfilter",
-        artifactId = "storekit-aptoide-api",
+        artifactId = "storekit-signature",
         version = version.toString()
     )
 
     pom {
-        name.set("Aptoide API Library")
-        description.set("Aptoide Library is a Kotlin library for extracting comprehensive app data from the Aptoide API.")
+        name.set("App Signature Library")
+        description.set("Module for extracting app signatures in SHA1 format from installed Android applications")
         inceptionYear.set("2024")
         url.set("https://github.com/kdroidFilter/StoreKit/")
 

@@ -1,5 +1,6 @@
 [versions]
 
+junit-junit = "4.13.2"
 kotlin = "2.1.21"
 agp = "8.9.3"
 kotlin-logging = "7.0.7"
@@ -12,6 +13,7 @@ slf4j-simple = "2.0.17"
 vanniktech = "0.32.0"
 
 [libraries]
+junit-junit = { module = "junit:junit", version.ref = "junit-junit" }
 kotlin-logging = { module = "io.github.oshai:kotlin-logging", version.ref = "kotlin-logging" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
