@@ -43,7 +43,7 @@ fun main() {
         val fdroidService = FDroidService()
 
         // Create an example F-Droid package info
-        val fdroidPackage = fdroidService.getPackageInfo("org.fdroid.fdroid")
+        val fdroidPackage = fdroidService.getPackageInfo("net.thunderbird.android")
 
         // Print the F-Droid example as JSON
         println("=== F-Droid Example ===")
