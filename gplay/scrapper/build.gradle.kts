@@ -8,7 +8,7 @@ plugins {
 
 }
 
-group = "io.github.kdroidfilter.storekit"
+group = "io.github.kdroidfilter.storekit.gplay.scrapper"
 val ref = System.getenv("GITHUB_REF") ?: ""
 val version = if (ref.startsWith("refs/tags/")) {
     val tag = ref.removePrefix("refs/tags/")
@@ -16,7 +16,7 @@ val version = if (ref.startsWith("refs/tags/")) {
 } else "dev"
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
     androidTarget {
         publishLibraryVariants("release")
     }
@@ -105,7 +105,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.kdroidfilter.androidappstorekit.gplay.scrapper"
+    namespace = "io.github.kdroidfilter.storekit.gplay.scrapper"
     compileSdk = 35
 
     defaultConfig {
@@ -115,8 +115,8 @@ android {
 
 mavenPublishing {
     coordinates(
-        groupId = group.toString(),
-        artifactId = "gplay-scrapper",
+        groupId = "io.github.kdroidfilter",
+        artifactId = "storekit.gplay.scrapper",
         version = version.toString()
     )
 

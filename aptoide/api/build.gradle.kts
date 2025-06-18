@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.vannitktech.maven.publish)
 }
 
-group = "io.github.kdroidfilter.storekit"
+group = "io.github.kdroidfilter.storekit.aptoide.api"
 val ref = System.getenv("GITHUB_REF") ?: ""
 val version = if (ref.startsWith("refs/tags/")) {
     val tag = ref.removePrefix("refs/tags/")
@@ -15,7 +15,7 @@ val version = if (ref.startsWith("refs/tags/")) {
 } else "dev"
 
 kotlin {
-    jvmToolchain(11)
+    jvmToolchain(17)
     androidTarget {
         publishLibraryVariants("release")
     }
@@ -98,7 +98,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.kdroidfilter.androidappstorekit.aptoide.api"
+    namespace = "io.github.kdroidfilter.storekit.aptoide.api"
     compileSdk = 35
 
     defaultConfig {
@@ -108,8 +108,8 @@ android {
 
 mavenPublishing {
     coordinates(
-        groupId = group.toString(),
-        artifactId = "aptoide-api",
+        groupId = "io.github.kdroidfilter",
+        artifactId = "storekit.aptoide.api",
         version = version
     )
 
