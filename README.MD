@@ -1,6 +1,6 @@
-# 💡 AndroidAppStoreKit Library
+# 💡 StoreKit Library
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter.androidappstorekit.gplay/core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter.androidappstorekit.gplay%22%20AND%20a:%22core%22)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-gplay-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-gplay-core%22)
 
 ## 📑 Table of Contents
 - [Introduction](#-introduction)
@@ -20,7 +20,7 @@
 
 ## 🔄 Introduction
 
-AndroidAppStoreKit is a comprehensive Kotlin multiplatform library for extracting detailed information about applications from various Android app stores. Currently, it supports:
+StoreKit is a comprehensive Kotlin multiplatform library for extracting detailed information about applications from various Android app stores. Currently, it supports:
 
 1. **Google Play Store** - A full Kotlin adaptation of the [google-play-scraper](https://github.com/JoMingyu/google-play-scraper) Python library
 2. **Aptoide Store** - A client for the Aptoide API
@@ -34,7 +34,7 @@ This library is built using Kotlin Multiplatform and leverages kotlinx.serializa
 - **Multi-store support**: Extract app data from Google Play Store and Aptoide
 - **Comprehensive app details**: Fetch application information including title, description, developer info, price, etc.
 - **Rich metadata**: Retrieve app ratings, reviews, download counts, screenshots, icons, and videos
-- **Cross-platform**: Works on Android, iOS, JVM, and other platforms supported by Kotlin Multiplatform
+- **Cross-platform**: Works on Android, JVM, and other platforms supported by Kotlin Multiplatform
 - **Modular architecture**: Use only the modules you need for your specific use case
 
 ## 🔍 Google Play Store
@@ -51,7 +51,7 @@ For scraping data from the Google Play Store:
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter.androidappstorekit.gplay:scrapper:<version>")
+    implementation("io.github.kdroidfilter:storekit-gplay-scrapper:<version>")
 }
 ```
 
@@ -63,7 +63,7 @@ If you only need the model classes (like `GooglePlayApplicationInfo` and `Google
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter.androidappstorekit.gplay:core:<version>")
+    implementation("io.github.kdroidfilter:storekit-gplay-core:<version>")
 }
 ```
 
@@ -169,7 +169,7 @@ For accessing the Aptoide API:
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter.androidappstorekit.aptoide:api:<version>")
+    implementation("io.github.kdroidfilter:storekit-aptoide-api:<version>")
 }
 ```
 
@@ -181,7 +181,7 @@ If you only need the model classes (like `AptoideApplicationInfo`) without the A
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter.androidappstorekit.aptoide:core:<version>")
+    implementation("io.github.kdroidfilter:storekit-aptoide-core:<version>")
 }
 ```
 
@@ -503,7 +503,7 @@ The library includes a logger for debugging. You can customize or disable loggin
 The library uses Ktor for network operations. Since Ktor dependencies are configured as `compileOnly`, you need to include the following Ktor dependencies in your project:
 
 ```kotlin
-// Ktor dependencies
+// Ktor dependencies - version 3.2.0 or later
 implementation("io.ktor:ktor-client-core:$ktor_version")
 implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
 implementation("io.ktor:ktor-client-serialization:$ktor_version")
@@ -515,7 +515,7 @@ Also ensure that network permissions are properly configured for Android.
 
 ## 📚 Contributions
 
-Contributions to the library are welcome. If you find a bug or want to request a feature, feel free to open an issue or submit a pull request on GitHub.
+Contributions to the library are welcome. If you find a bug or want to request a feature, feel free to open an issue or submit a pull request on [GitHub](https://github.com/kdroidFilter/StoreKit).
 
 ## 📄 License
 
