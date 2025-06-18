@@ -13,6 +13,9 @@
   - [Installation](#aptoide-installation)
   - [Usage](#aptoide-usage)
   - [Data Models](#aptoide-data-models)
+- [App Signature](#-app-signature)
+  - [Installation](#app-signature-installation)
+  - [Usage](#app-signature-usage)
 - [Configuration](#-configuration)
 - [Contributions](#-contributions)
 - [License](#-license)
@@ -24,6 +27,7 @@ StoreKit is a comprehensive Kotlin multiplatform library for extracting detailed
 
 1. **Google Play Store** - A full Kotlin adaptation of the [google-play-scraper](https://github.com/JoMingyu/google-play-scraper) Python library
 2. **Aptoide Store** - A client for the Aptoide API
+3. **App Signature** - A utility for extracting SHA1 signatures from installed Android applications
 
 With this library, you can fetch details such as application descriptions, developer information, categories, reviews, ratings, and more from multiple app stores using a consistent API.
 
@@ -34,6 +38,7 @@ This library is built using Kotlin Multiplatform and leverages kotlinx.serializa
 - **Multi-store support**: Extract app data from Google Play Store and Aptoide
 - **Comprehensive app details**: Fetch application information including title, description, developer info, price, etc.
 - **Rich metadata**: Retrieve app ratings, reviews, download counts, screenshots, icons, and videos
+- **App signatures**: Extract SHA1 signatures from installed Android applications
 - **Cross-platform**: Works on Android, JVM, and other platforms supported by Kotlin Multiplatform
 - **Modular architecture**: Use only the modules you need for your specific use case
 
@@ -496,6 +501,49 @@ The `AptoideTime` class contains time information with the following fields:
 
 - `seconds: Double` - Time in seconds
 - `human: String` - Human-readable time
+
+## 📱 App Signature
+
+### App Signature Installation
+
+The App Signature module is available on Maven Central:
+
+#### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter:storekit-signature:<version>")
+}
+```
+
+### App Signature Usage
+
+#### Extracting SHA1 Signature from an Installed App
+
+To extract the SHA1 signature of an installed Android application, you can use the `SignatureExtractor` class:
+
+```kotlin
+// In your Android activity or fragment
+fun extractSignature(context: Context) {
+    val packageName = "com.example.app" // Package name of the app
+
+    // Extract the SHA1 signature
+    val signature = SignatureExtractor.extractSha1Signature(context, packageName)
+
+    // Use the signature
+    if (signature != null) {
+        println("SHA1 Signature: $signature")
+    } else {
+        println("Failed to extract signature. App might not be installed.")
+    }
+}
+```
+
+**Parameters:**
+- `context`: The Android context.
+- `packageName`: The package name of the application.
+
+**Returns:** The SHA1 signature of the application as a string, or null if the application is not installed or the signature cannot be extracted.
 
 ## 💧 Configuration
 
