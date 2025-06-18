@@ -1,9 +1,9 @@
-package io.github.kdroidfilter.androidappstorekit.aptoide.api.services
+package io.github.kdroidfilter.storekit.aptoide.api.services
 
-import io.github.kdroidfilter.androidappstorekit.aptoide.api.constants.APP_GET_META_PATH
-import io.github.kdroidfilter.androidappstorekit.aptoide.api.constants.BASE_APTOIDE_API_URL
-import io.github.kdroidfilter.androidappstorekit.aptoide.core.model.AptoideApplicationInfo
-import io.github.kdroidfilter.androidappstorekit.aptoide.core.model.AptoideResponse
+import io.github.kdroidfilter.storekit.aptoide.api.constants.APP_GET_META_PATH
+import io.github.kdroidfilter.storekit.aptoide.api.constants.BASE_APTOIDE_API_URL
+import io.github.kdroidfilter.storekit.aptoide.core.model.AptoideApplicationInfo
+import io.github.kdroidfilter.storekit.aptoide.core.model.AptoideResponse
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*

@@ -1,4 +1,4 @@
-package io.github.kdroidfilter.androidappstorekit.aptoide.core.model
+package io.github.kdroidfilter.storekit.aptoide.core.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
