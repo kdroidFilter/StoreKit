@@ -62,7 +62,6 @@ kotlin {
         commonMain.dependencies {
             api(project(":gplay:core"))
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.kotlinx.coroutines.test)
             implementation(libs.kotlinx.serialization.json)
             compileOnly(libs.ktor.client.core)
             compileOnly(libs.ktor.client.content.negotiation)
