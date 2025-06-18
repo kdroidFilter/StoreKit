@@ -352,6 +352,11 @@ The `AptoideSignature` class contains signature information with the following f
 - `sha1: String` - SHA1 hash of the signature
 - `owner: String` - Owner of the signature
 
+##### Extension Functions
+
+- `toFormattedSha1()` - Converts the SHA1 signature format from "XX:XX:XX..." to a continuous lowercase hex string.
+  Example: "35:B4:38:FE:1B:C6:9D:97:5D:C8:70:2D:C1:6A:B6:9E:BF:65:F2:6F" becomes "35b438fe1bc69d975dc8702dc16ab69ebf65f26f"
+
 #### `AptoideHardware`
 
 The `AptoideHardware` class contains hardware requirements with the following fields:
