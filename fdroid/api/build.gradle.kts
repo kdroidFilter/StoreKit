@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.vannitktech.maven.publish)
 }
 
-group = "io.github.kdroidfilter.storekit.aptoide.api"
+group = "io.github.kdroidfilter.storekit.fdroid.api"
 val ref = System.getenv("GITHUB_REF") ?: ""
 val version = if (ref.startsWith("refs/tags/")) {
     val tag = ref.removePrefix("refs/tags/")
@@ -22,10 +22,9 @@ kotlin {
 
     jvm()
 
-
     sourceSets {
         commonMain.dependencies {
-            api(project(":aptoide:core"))
+            api(project(":fdroid:core"))
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.kotlinx.serialization.json)
@@ -46,7 +45,6 @@ kotlin {
             implementation(libs.ktor.client.cio)
         }
 
-
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
         }
@@ -64,7 +62,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.kdroidfilter.storekit.aptoide.api"
+    namespace = "io.github.kdroidfilter.storekit.fdroid.api"
     compileSdk = 35
 
     defaultConfig {
@@ -75,13 +73,13 @@ android {
 mavenPublishing {
     coordinates(
         groupId = "io.github.kdroidfilter",
-        artifactId = "storekit-aptoide-api",
+        artifactId = "storekit-fdroid-api",
         version = version.toString()
     )
 
     pom {
-        name.set("Aptoide API Library")
-        description.set("Aptoide Library is a Kotlin library for extracting comprehensive app data from the Aptoide API.")
+        name.set("F-Droid API Library")
+        description.set("F-Droid Library is a Kotlin library for extracting comprehensive app data from the F-Droid API.")
         inceptionYear.set("2024")
         url.set("https://github.com/kdroidFilter/StoreKit/")
 

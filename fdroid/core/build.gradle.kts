@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.vannitktech.maven.publish)
 }
 
-group = "io.github.kdroidfilter.storekit.aptoide.api"
+group = "io.github.kdroidfilter.storekit.fdroid.core"
 val ref = System.getenv("GITHUB_REF") ?: ""
 val version = if (ref.startsWith("refs/tags/")) {
     val tag = ref.removePrefix("refs/tags/")
@@ -19,41 +19,50 @@ kotlin {
     androidTarget {
         publishLibraryVariants("release")
     }
+    wasmJs { browser() }
 
     jvm()
 
+    linuxX64 {
+        binaries.staticLib {
+            baseName = "shared"
+        }
+    }
+
+    mingwX64 {
+        binaries.staticLib {
+            baseName = "shared"
+        }
+    }
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "core"
+            isStatic = true
+        }
+    }
+
+    listOf(
+        macosX64(),
+        macosArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "core"
+            isStatic = true
+        }
+    }
 
     sourceSets {
         commonMain.dependencies {
-            api(project(":aptoide:core"))
-            implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.kotlinx.coroutines.test)
             implementation(libs.kotlinx.serialization.json)
-            compileOnly(libs.ktor.client.core)
-            compileOnly(libs.ktor.client.content.negotiation)
-            compileOnly(libs.ktor.client.serialization)
-            compileOnly(libs.ktor.client.logging)
-            compileOnly(libs.ktor.client.cio)
-            implementation(libs.kotlin.logging)
         }
 
         commonTest.dependencies {
             implementation(kotlin("test"))
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.client.serialization)
-            implementation(libs.ktor.client.logging)
-            implementation(libs.ktor.client.cio)
-        }
-
-
-        androidMain.dependencies {
-            implementation(libs.kotlinx.coroutines.android)
-        }
-
-        jvmMain.dependencies {
-            implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.slf4j.simple)
         }
     }
 
@@ -64,7 +73,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.kdroidfilter.storekit.aptoide.api"
+    namespace = "io.github.kdroidfilter.storekit.fdroid.core"
     compileSdk = 35
 
     defaultConfig {
@@ -75,13 +84,13 @@ android {
 mavenPublishing {
     coordinates(
         groupId = "io.github.kdroidfilter",
-        artifactId = "storekit-aptoide-api",
+        artifactId = "storekit-fdroid-core",
         version = version.toString()
     )
 
     pom {
-        name.set("Aptoide API Library")
-        description.set("Aptoide Library is a Kotlin library for extracting comprehensive app data from the Aptoide API.")
+        name.set("F-Droid Core Library")
+        description.set("Core module for F-Droid Library containing model classes")
         inceptionYear.set("2024")
         url.set("https://github.com/kdroidFilter/StoreKit/")
 

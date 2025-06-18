@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.github.kdroidfilter.storekit.signature">
+
+    <!-- Permissions needed for signature extraction -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+
+    <!-- For Android 11+ (API level 30+), we can use the queries element instead of QUERY_ALL_PACKAGES -->
+    <queries>
+        <!-- This allows querying information about all installed packages -->
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+        </intent>
+    </queries>
+
+</manifest>
