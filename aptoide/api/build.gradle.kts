@@ -22,38 +22,6 @@ kotlin {
 
     jvm()
 
-    linuxX64 {
-        binaries.staticLib {
-            baseName = "shared"
-        }
-    }
-
-    mingwX64 {
-        binaries.staticLib {
-            baseName = "shared"
-        }
-    }
-
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "core"
-            isStatic = true
-        }
-    }
-
-    listOf(
-        macosX64(),
-        macosArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "core"
-            isStatic = true
-        }
-    }
 
     sourceSets {
         commonMain.dependencies {
@@ -73,13 +41,6 @@ kotlin {
             implementation(kotlin("test"))
         }
 
-        nativeMain.dependencies {
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.client.serialization)
-            implementation(libs.ktor.client.logging)
-            implementation(libs.ktor.client.cio)
-        }
 
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
