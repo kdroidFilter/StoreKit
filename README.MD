@@ -9,6 +9,10 @@
   - [Installation](#google-play-installation)
   - [Usage](#google-play-usage)
   - [Data Models](#google-play-data-models)
+- [F-Droid Store](#-f-droid-store)
+  - [Installation](#f-droid-installation)
+  - [Usage](#f-droid-usage)
+  - [Data Models](#f-droid-data-models)
 - [Aptoide Store](#-aptoide-store)
   - [Installation](#aptoide-installation)
   - [Usage](#aptoide-usage)
@@ -26,8 +30,9 @@
 StoreKit is a comprehensive Kotlin multiplatform library for extracting detailed information about applications from various Android app stores. Currently, it supports:
 
 1. **Google Play Store** - A full Kotlin adaptation of the [google-play-scraper](https://github.com/JoMingyu/google-play-scraper) Python library
-2. **Aptoide Store** - A client for the Aptoide API
-3. **App Signature** - A utility for extracting SHA1 signatures from installed Android applications
+2. **F-Droid Store** - A client for the F-Droid API
+3. **Aptoide Store** - A client for the Aptoide API
+4. **App Signature** - A utility for extracting SHA1 signatures from installed Android applications
 
 With this library, you can fetch details such as application descriptions, developer information, categories, reviews, ratings, and more from multiple app stores using a consistent API.
 
@@ -35,7 +40,7 @@ This library is built using Kotlin Multiplatform and leverages kotlinx.serializa
 
 ## 📊 Features
 
-- **Multi-store support**: Extract app data from Google Play Store and Aptoide
+- **Multi-store support**: Extract app data from Google Play Store, F-Droid, and Aptoide
 - **Comprehensive app details**: Fetch application information including title, description, developer info, price, etc.
 - **Rich metadata**: Retrieve app ratings, reviews, download counts, screenshots, icons, and videos
 - **App signatures**: Extract SHA1 signatures from installed Android applications
@@ -159,6 +164,106 @@ The `GooglePlayCategory` class represents a category on the Google Play Store wi
 
 - `name: String` - Name of the category
 - `id: String` - Unique identifier of the category
+
+## 📦 F-Droid Store
+
+### F-Droid Installation
+
+The F-Droid modules are available on Maven Central:
+
+#### F-Droid API Module
+
+For accessing the F-Droid API:
+
+##### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter:storekit-fdroid-api:<version>")
+}
+```
+
+#### F-Droid Core Module
+
+If you only need the model classes (like `FDroidPackageInfo`) without the API client:
+
+##### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter:storekit-fdroid-core:<version>")
+}
+```
+
+### F-Droid Usage
+
+#### Fetching Package Information from F-Droid
+
+To fetch detailed information about a specific package from F-Droid, you can use the `FDroidService` class. The class provides a method to retrieve package information using the package name.
+
+##### Methods:
+
+###### `getPackageInfo`
+
+Fetches package information using the package name.
+
+**Parameters:**
+- `packageName: String` (mandatory): The package name of the application.
+
+**Returns:** An instance of `FDroidPackageInfo` containing the package information.
+
+**Throws:** `IllegalArgumentException` if the package with the given package name does not exist or is not accessible.
+
+##### Example:
+
+```kotlin
+fun main() {
+    val json = Json { 
+        prettyPrint = true 
+        encodeDefaults = true
+    }
+
+    runBlocking {
+        try {
+            val fdroidService = FDroidService()
+
+            // Fetch package information by package name
+            val packageInfo = fdroidService.getPackageInfo("net.thunderbird.android")
+            println(json.encodeToString(packageInfo))
+
+            // Get download link for the suggested version
+            val downloadLink = packageInfo.getSuggestedVersionDownloadLink()
+            println("Download link: $downloadLink")
+
+        } catch (e: Exception) {
+            println("Error fetching package information: ${e.message}")
+            e.printStackTrace()
+        }
+    }
+}
+```
+
+### F-Droid Data Models
+
+#### `FDroidPackageInfo`
+
+The `FDroidPackageInfo` class represents detailed information about a package on the F-Droid store. It contains the following fields:
+
+- `packageName: String` - The package name of the application
+- `suggestedVersionCode: Long` - The suggested version code of the application
+- `packages: List<FDroidPackageVersion>` - List of available package versions
+
+##### Methods:
+
+- `getDownloadLink(versionCode: Long): String?` - Gets the download link for the package with the specified version code. Returns null if the version code doesn't exist in the packages list.
+- `getSuggestedVersionDownloadLink(): String?` - Gets the download link for the suggested version of the package. Returns null if the suggested version doesn't exist in the packages list.
+
+#### `FDroidPackageVersion`
+
+The `FDroidPackageVersion` class represents a version of a package in F-Droid with the following fields:
+
+- `versionName: String` - The version name of the package (e.g., "1.9")
+- `versionCode: Long` - The version code of the package (e.g., 1009000)
 
 ## 📱 Aptoide Store
 
