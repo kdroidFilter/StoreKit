@@ -7,7 +7,7 @@ kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.8.1"
 ksoup-html      = "0.6.0"
 ksoup-entities  = "0.6.0"
-ktor = "3.2.0"
+ktor = "3.1.3"
 slf4j-simple = "2.0.17"
 vanniktech = "0.32.0"
 

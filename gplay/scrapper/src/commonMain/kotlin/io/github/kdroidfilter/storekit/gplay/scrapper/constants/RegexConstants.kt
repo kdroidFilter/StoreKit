@@ -1,4 +1,4 @@
-package io.github.kdroidfilter.androidappstorekit.gplay.scrapper.constants
+package io.github.kdroidfilter.storekit.gplay.scrapper.constants
 
 // Regex for datasets
 internal val keyRegex = Regex("(ds:\\d+)")

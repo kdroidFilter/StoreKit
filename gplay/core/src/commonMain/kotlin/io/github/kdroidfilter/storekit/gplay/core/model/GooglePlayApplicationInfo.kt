@@ -1,4 +1,4 @@
-package io.github.kdroidfilter.androidappstorekit.gplay.core.model
+package io.github.kdroidfilter.storekit.gplay.core.model
 
 import kotlinx.serialization.Serializable
 

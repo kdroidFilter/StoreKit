@@ -1,9 +1,9 @@
 package io.github.kdroidfilter.androidappstorekit.gplay.scrapper.utils
 
-import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.constants.keyRegex
-import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.constants.valueRegex
-import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.utils.JsonExtensions.jsonParser
-import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.utils.NetworkUtils.logger
+import io.github.kdroidfilter.storekit.gplay.scrapper.constants.keyRegex
+import io.github.kdroidfilter.storekit.gplay.scrapper.constants.valueRegex
+import io.github.kdroidfilter.storekit.gplay.scrapper.utils.JsonExtensions.jsonParser
+import io.github.kdroidfilter.storekit.gplay.scrapper.utils.NetworkUtils.logger
 import kotlinx.serialization.json.JsonElement
 
 /**

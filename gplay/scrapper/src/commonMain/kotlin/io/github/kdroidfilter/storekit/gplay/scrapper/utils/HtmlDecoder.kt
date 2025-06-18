@@ -1,4 +1,4 @@
-package io.github.kdroidfilter.androidappstorekit.gplay.scrapper.utils
+package io.github.kdroidfilter.storekit.gplay.scrapper.utils
 
 /**
  * Provides utility functions for decoding HTML entities commonly encountered in HTML content.

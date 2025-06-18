@@ -1,4 +1,4 @@
-package io.github.kdroidfilter.androidappstorekit.gplay.scrapper.utils
+package io.github.kdroidfilter.storekit.gplay.scrapper.utils
 
 import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.constants.BASE_PLAY_STORE_URL
 import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.constants.DETAIL_PATH
