@@ -92,7 +92,7 @@ mavenPublishing {
         name.set("GPlay Core Library")
         description.set("Core module for GPlay Library containing model classes")
         inceptionYear.set("2024")
-        url.set("https://github.com/kdroidFilter/GPlayScraper/")
+        url.set("https://github.com/kdroidFilter/StoreKit/")
 
         licenses {
             license {
@@ -110,9 +110,9 @@ mavenPublishing {
         }
 
         scm {
-            connection.set("scm:git:git://github.com/kdroidFilter/GPlayScraper.git")
-            developerConnection.set("scm:git:ssh://git@github.com:kdroidFilter/GPlayScraper.git")
-            url.set("https://github.com/kdroidFilter/GPlayScraper/")
+            connection.set("scm:git:git://github.com/kdroidFilter/StoreKit.git")
+            developerConnection.set("scm:git:ssh://git@github.com:kdroidFilter/StoreKit.git")
+            url.set("https://github.com/kdroidFilter/StoreKit/")
         }
     }
 
