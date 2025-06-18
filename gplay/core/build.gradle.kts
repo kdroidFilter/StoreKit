@@ -84,7 +84,7 @@ android {
 mavenPublishing {
     coordinates(
         groupId = "io.github.kdroidfilter",
-        artifactId = "storekit.gplay.core",
+        artifactId = "storekit-gplay-core",
         version = version.toString()
     )
 
