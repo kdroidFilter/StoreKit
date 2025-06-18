@@ -545,6 +545,57 @@ fun extractSignature(context: Context) {
 
 **Returns:** The SHA1 signature of the application as a string, or null if the application is not installed or the signature cannot be extracted.
 
+#### Validating a SHA1 Signature
+
+To validate if a string is a valid SHA1 signature, you can use the `isValidSha1Signature` function:
+
+```kotlin
+fun validateSignature() {
+    val sha1String = "38918a453d07199354f8b19af05ec6562ced5788" // Example SHA1 signature
+
+    // Validate the SHA1 signature
+    val isValid = SignatureExtractor.isValidSha1Signature(sha1String)
+
+    if (isValid) {
+        println("The signature is a valid SHA1 signature")
+    } else {
+        println("The signature is not a valid SHA1 signature")
+    }
+}
+```
+
+**Parameters:**
+- `sha1String`: The SHA1 string to verify.
+
+**Returns:** True if the string is a valid SHA1 signature (40 characters long and contains only hexadecimal digits), false otherwise.
+
+#### Verifying an App's Signature
+
+To verify if an installed app's signature matches an expected SHA1 signature, you can use the `verifyPackageSignature` function. This function already validates the SHA1 signature internally, so you don't need to call `isValidSha1Signature` separately:
+
+```kotlin
+fun verifyAppSignature(context: Context) {
+    val packageName = "com.android.chrome" // Package name of the app
+    val expectedSignature = "38918a453d07199354f8b19af05ec6562ced5788" // Expected SHA1 signature
+
+    // Verify the app's signature
+    val isSignatureValid = SignatureExtractor.verifyPackageSignature(context, packageName, expectedSignature)
+
+    if (isSignatureValid) {
+        println("The app's signature matches the expected signature")
+    } else {
+        println("The app's signature does not match the expected signature, or the app is not installed")
+    }
+}
+```
+
+**Parameters:**
+- `context`: The Android context.
+- `packageName`: The package name of the application to verify.
+- `expectedSha1`: The expected SHA1 signature to compare against.
+
+**Returns:** True if the signatures match, false otherwise (including if the package is not installed or the signature cannot be extracted, or if the provided SHA1 is invalid).
+
 ## 💧 Configuration
 
 ### Logging

@@ -89,5 +89,45 @@ class SignatureExtractor {
             }
             return sb.toString()
         }
+
+        /**
+         * Verifies if a given string is a valid SHA1 signature.
+         *
+         * @param sha1String The SHA1 string to verify.
+         * @return True if the string is a valid SHA1 signature, false otherwise.
+         */
+        fun isValidSha1Signature(sha1String: String): Boolean {
+            // A valid SHA1 hash is 40 characters long (20 bytes * 2 hex chars per byte)
+            if (sha1String.length != 40) {
+                return false
+            }
+
+            // Check if all characters are valid hexadecimal digits
+            return sha1String.all { char ->
+                char in '0'..'9' || char in 'a'..'f' || char in 'A'..'F'
+            }
+        }
+
+        /**
+         * Verifies if the signature of an installed package matches a provided SHA1 signature.
+         *
+         * @param context The Android context.
+         * @param packageName The package name of the application to verify.
+         * @param expectedSha1 The expected SHA1 signature to compare against.
+         * @return True if the signatures match, false otherwise (including if the package is not installed
+         *         or the signature cannot be extracted, or if the provided SHA1 is invalid).
+         */
+        fun verifyPackageSignature(context: Context, packageName: String, expectedSha1: String): Boolean {
+            // First, validate the expected SHA1 signature
+            if (!isValidSha1Signature(expectedSha1)) {
+                return false
+            }
+
+            // Extract the actual signature from the installed package
+            val actualSha1 = extractSha1Signature(context, packageName) ?: return false
+
+            // Compare the signatures (case-insensitive comparison)
+            return actualSha1.equals(expectedSha1, ignoreCase = true)
+        }
     }
 }
