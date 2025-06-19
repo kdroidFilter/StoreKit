@@ -17,9 +17,10 @@
   - [Installation](#aptoide-installation)
   - [Usage](#aptoide-usage)
   - [Data Models](#aptoide-data-models)
-- [App Signature](#-app-signature)
-  - [Installation](#app-signature-installation)
-  - [Usage](#app-signature-usage)
+- [App Authenticity](#-app-authenticity)
+  - [Installation](#app-authenticity-installation)
+  - [Usage](#app-authenticity-usage)
+  - [Installation Source Detection](#installation-source-detection)
 - [Configuration](#-configuration)
 - [Contributions](#-contributions)
 - [License](#-license)
@@ -32,7 +33,7 @@ StoreKit is a comprehensive Kotlin multiplatform library for extracting detailed
 1. **Google Play Store** - A full Kotlin adaptation of the [google-play-scraper](https://github.com/JoMingyu/google-play-scraper) Python library
 2. **F-Droid Store** - A client for the F-Droid API
 3. **Aptoide Store** - A client for the Aptoide API
-4. **App Signature** - A utility for extracting SHA1 signatures from installed Android applications
+4. **App Authenticity** - A utility for extracting SHA1 signatures from installed Android applications and detecting installation sources
 
 With this library, you can fetch details such as application descriptions, developer information, categories, reviews, ratings, and more from multiple app stores using a consistent API.
 
@@ -43,7 +44,7 @@ This library is built using Kotlin Multiplatform and leverages kotlinx.serializa
 - **Multi-store support**: Extract app data from Google Play Store, F-Droid, and Aptoide
 - **Comprehensive app details**: Fetch application information including title, description, developer info, price, etc.
 - **Rich metadata**: Retrieve app ratings, reviews, download counts, screenshots, icons, and videos
-- **App signatures**: Extract SHA1 signatures from installed Android applications
+- **App authenticity**: Extract SHA1 signatures from installed Android applications and detect installation sources
 - **Cross-platform**: Works on Android, JVM, and other platforms supported by Kotlin Multiplatform
 - **Modular architecture**: Use only the modules you need for your specific use case
 
@@ -615,21 +616,21 @@ The `AptoideTime` class contains time information with the following fields:
 - `seconds: Double` - Time in seconds
 - `human: String` - Human-readable time
 
-## 📱 App Signature
+## 📱 App Authenticity
 
-### App Signature Installation
+### App Authenticity Installation
 
-The App Signature module is available on Maven Central:
+The App Authenticity module is available on Maven Central:
 
 #### Gradle Kotlin DSL
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter:storekit-signature:<version>")
+    implementation("io.github.kdroidfilter:storekit-authenticity:<version>")
 }
 ```
 
-### App Signature Usage
+### App Authenticity Usage
 
 #### Extracting SHA1 Signature from an Installed App
 
@@ -708,6 +709,76 @@ fun verifyAppSignature(context: Context) {
 - `expectedSha1`: The expected SHA1 signature to compare against.
 
 **Returns:** True if the signatures match, false otherwise (including if the package is not installed or the signature cannot be extracted, or if the provided SHA1 is invalid).
+
+### Installation Source Detection
+
+The App Authenticity module also provides functionality to detect the installation source of Android applications using the `InstallationSourceDetector` class.
+
+#### Detecting Installation Source
+
+To detect the installation source of an Android application, you can use the `detectInstallationSource` method:
+
+```kotlin
+fun detectSource(context: Context) {
+    val packageName = "com.example.app" // Package name of the app
+
+    // Detect the installation source
+    val installationInfo = InstallationSourceDetector.detectInstallationSource(context, packageName)
+
+    // Use the installation information
+    println("Installation Source: ${installationInfo.source}")
+    println("Installer Name: ${installationInfo.installerName}")
+    println("Installer Package: ${installationInfo.installerPackage}")
+    println("Is System App: ${installationInfo.isSystemApp}")
+}
+```
+
+**Parameters:**
+- `context`: The Android context.
+- `packageName`: The package name of the application.
+
+**Returns:** An `InstallationInfo` object containing information about the installation source.
+
+#### Checking if an App is a System App
+
+To check if an application is a system app, you can use the `isSystemApp` method:
+
+```kotlin
+fun checkIfSystemApp(context: Context) {
+    val packageName = "com.example.app" // Package name of the app
+
+    // Check if the app is a system app
+    val isSystemApp = InstallationSourceDetector.isSystemApp(context, packageName)
+
+    if (isSystemApp) {
+        println("The app is a system app")
+    } else {
+        println("The app is not a system app")
+    }
+}
+```
+
+**Parameters:**
+- `context`: The Android context.
+- `packageName`: The package name of the application.
+
+**Returns:** True if the application is a system app, false otherwise.
+
+#### Supported Installation Sources
+
+The `InstallationSourceDetector` can identify the following installation sources:
+
+- **Google Play Store** (`InstallationSource.GOOGLE_PLAY`)
+- **Amazon Appstore** (`InstallationSource.AMAZON`)
+- **Samsung Galaxy Store** (`InstallationSource.SAMSUNG`)
+- **Huawei AppGallery** (`InstallationSource.HUAWEI`)
+- **Xiaomi GetApps** (`InstallationSource.XIAOMI`)
+- **OPPO App Market** (`InstallationSource.OPPO`)
+- **Vivo App Store** (`InstallationSource.VIVO`)
+- **OnePlus App Market** (`InstallationSource.ONEPLUS`)
+- **System App** (`InstallationSource.SYSTEM`)
+- **Sideloaded App** (`InstallationSource.SIDELOADED`)
+- **Other Store** (`InstallationSource.OTHER`)
 
 ## 💧 Configuration
 
