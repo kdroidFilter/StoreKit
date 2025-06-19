@@ -1,4 +1,4 @@
-package io.github.kdroidfilter.storekit.signature
+package io.github.kdroidfilter.storekit.authenticity
 
 import android.content.Context
 import android.content.pm.PackageManager
