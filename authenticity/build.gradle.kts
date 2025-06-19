@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.vannitktech.maven.publish)
 }
 
-group = "io.github.kdroidfilter.storekit.signature"
+group = "io.github.kdroidfilter.storekit.authenticity"
 val ref = System.getenv("GITHUB_REF") ?: ""
 val version = if (ref.startsWith("refs/tags/")) {
     val tag = ref.removePrefix("refs/tags/")
@@ -38,7 +38,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.kdroidfilter.storekit.signature"
+    namespace = "io.github.kdroidfilter.storekit.authenticity"
     compileSdk = 35
 
     defaultConfig {
@@ -58,12 +58,12 @@ android {
 mavenPublishing {
     coordinates(
         groupId = "io.github.kdroidfilter",
-        artifactId = "storekit-signature",
+        artifactId = "storekit-authenticity",
         version = version.toString()
     )
 
     pom {
-        name.set("App Signature Library")
+        name.set("App Authenticity Library")
         description.set("Module for extracting app signatures in SHA1 format from installed Android applications")
         inceptionYear.set("2024")
         url.set("https://github.com/kdroidFilter/StoreKit/")
