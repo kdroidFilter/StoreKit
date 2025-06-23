@@ -34,10 +34,10 @@
   - [Installation](#apkcombo-installation)
   - [Usage](#apkcombo-usage)
   - [Data Models](#apkcombo-data-models)
-- [APK Downloader](#-apk-downloader)
-  - [Installation](#apk-downloader-installation)
-  - [Usage](#apk-downloader-usage)
-  - [Data Models](#apk-downloader-data-models)
+- [APK Link Resolver](#-apk-link-resolver)
+  - [Installation](#apk-link-resolver-installation)
+  - [Usage](#apk-link-resolver-usage)
+  - [Data Models](#apk-link-resolver-data-models)
 - [App Authenticity](#-app-authenticity)
   - [Installation](#app-authenticity-installation)
   - [Usage](#app-authenticity-usage)
@@ -55,7 +55,7 @@ StoreKit is a comprehensive Kotlin multiplatform library for extracting detailed
 2. **F-Droid Store** - A client for the F-Droid API
 3. **Aptoide Store** - A client for the Aptoide API
 4. **APKCombo** - A scraper for the APKCombo website
-5. **APK Downloader** - A unified service for retrieving APK download links from multiple sources with configurable priority
+5. **APK Link Resolver** - A unified service for retrieving APK download links from multiple sources with configurable priority
 6. **App Authenticity** - A utility for extracting SHA1 signatures from installed Android applications and detecting installation sources
 
 With this library, you can fetch details such as application descriptions, developer information, categories, reviews, ratings, and more from multiple app stores using a consistent API.
@@ -730,27 +730,27 @@ The `ApkComboApplicationInfo` class represents detailed information about an app
 - `appId: String` - Unique identifier of the application (package name)
 - `url: String` - URL to the application's page on APKCombo
 
-## 📥 APK Downloader
+## 📥 APK Link Resolver
 
-The APK Downloader module provides a unified way to retrieve APK download links from multiple sources (currently APKCombo and Aptoide) with configurable priority.
+The APK Link Resolver module provides a unified way to retrieve APK download links from multiple sources (currently APKCombo and Aptoide) with configurable priority.
 
-### APK Downloader Installation
+### APK Link Resolver Installation
 
-The APK Downloader module is available on Maven Central:
+The APK Link Resolver module is available on Maven Central:
 
-#### APK Downloader Core Module
+#### APK Link Resolver Core Module
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-apkdownloader-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-apkdownloader-core%22)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-apklinkresolver-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-apklinkresolver-core%22)
 
 ##### Gradle Kotlin DSL
 
 ```kotlin
 dependencies {
-    implementation("io.github.kdroidfilter:storekit-apkdownloader-core:<version>")
+    implementation("io.github.kdroidfilter:storekit-apklinkresolver-core:<version>")
 }
 ```
 
-### APK Downloader Usage
+### APK Link Resolver Usage
 
 #### Configuring Source Priority
 
@@ -770,13 +770,13 @@ ApkSourcePriority.resetToDefault()
 
 #### Retrieving APK Download Links
 
-To retrieve an APK download link for a specific package, use the `ApkDownloaderService`:
+To retrieve an APK download link for a specific package, use the `ApkLinkResolverService`:
 
 ```kotlin
 fun main() {
     runBlocking {
         try {
-            val service = ApkDownloaderService()
+            val service = ApkLinkResolverService()
 
             // Get download link for a package
             val downloadInfo = service.getApkDownloadLink("com.google.android.gm")
@@ -805,9 +805,9 @@ The `ApkSource` enum represents the available APK sources:
 - `APKCOMBO` - The APKCombo website
 - `APTOIDE` - The Aptoide store
 
-#### `ApkDownloadInfo`
+#### `ApkLinkInfo`
 
-The `ApkDownloadInfo` class represents information about an APK download with the following fields:
+The `ApkLinkInfo` class represents information about an APK download with the following fields:
 
 - `packageName: String` - The package name of the application
 - `downloadLink: String` - The direct download link for the APK

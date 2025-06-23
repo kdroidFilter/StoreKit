@@ -1,4 +1,4 @@
-package io.github.kdroidfilter.storekit.apkdownloader.core.utils
+package io.github.kdroidfilter.storekit.apklinkresolver.core.utils
 
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test

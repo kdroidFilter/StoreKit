@@ -1,6 +1,6 @@
-package io.github.kdroidfilter.storekit.apkdownloader.core.service
+package io.github.kdroidfilter.storekit.apklinkresolver.core.service
 
-import io.github.kdroidfilter.storekit.apkdownloader.core.model.ApkDownloadInfo
+import io.github.kdroidfilter.storekit.apklinkresolver.core.model.ApkLinkInfo
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -9,9 +9,9 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
 
-class ApkDownloaderServiceTest {
+class ApkLinkResolverServiceTest {
 
-    private val service = ApkDownloaderService()
+    private val service = ApkLinkResolverService()
 
     /**
      * List of package names that are likely to be available in Aptoide
@@ -30,7 +30,7 @@ class ApkDownloaderServiceTest {
      * Helper function to try to get download info for any of the reliable packages
      * Returns the first successful result or throws the last exception
      */
-    private suspend fun getDownloadInfoForAnyReliablePackage(): Pair<String, ApkDownloadInfo> {
+    private suspend fun getDownloadInfoForAnyReliablePackage(): Pair<String, ApkLinkInfo> {
         var lastException: Exception? = null
 
         for (packageName in reliablePackages) {

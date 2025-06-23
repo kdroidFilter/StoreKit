@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.vannitktech.maven.publish)
 }
 
-group = "io.github.kdroidfilter.storekit.apkdownloader.core"
+group = "io.github.kdroidfilter.storekit.apklinkresolver.core"
 val ref = System.getenv("GITHUB_REF") ?: ""
 val version = if (ref.startsWith("refs/tags/")) {
     val tag = ref.removePrefix("refs/tags/")
@@ -29,9 +29,12 @@ kotlin {
             implementation(project(":aptoide:api"))
             implementation(project(":apkcombo:scraper"))
             implementation(libs.kotlin.logging)
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.client.cio)
+            compileOnly(libs.ktor.client.core)
+            compileOnly(libs.ktor.client.content.negotiation)
+            compileOnly(libs.ktor.client.serialization)
+            compileOnly(libs.ktor.client.cio)
+            compileOnly(libs.ktor.client.logging)
+
         }
 
         commonTest.dependencies {
@@ -60,7 +63,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.kdroidfilter.storekit.apkdownloader.core"
+    namespace = "io.github.kdroidfilter.storekit.apklinkresolver.core"
     compileSdk = 35
 
     defaultConfig {
@@ -71,13 +74,13 @@ android {
 mavenPublishing {
     coordinates(
         groupId = "io.github.kdroidfilter",
-        artifactId = "storekit-apkdownloader-core",
+        artifactId = "storekit-apklinkresolver-core",
         version = version.toString()
     )
 
     pom {
-        name.set("APK Downloader Core Library")
-        description.set("Core module for APK Downloader Library containing model classes and services")
+        name.set("APK Link Resolver Library")
+        description.set("Core module for APK Link Resolver Library containing model classes and services")
         inceptionYear.set("2024")
         url.set("https://github.com/kdroidFilter/StoreKit/")
 

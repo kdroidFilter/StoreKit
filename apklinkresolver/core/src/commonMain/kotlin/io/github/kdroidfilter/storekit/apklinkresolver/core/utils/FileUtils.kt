@@ -1,4 +1,4 @@
-package io.github.kdroidfilter.storekit.apkdownloader.core.utils
+package io.github.kdroidfilter.storekit.apklinkresolver.core.utils
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.HttpClient

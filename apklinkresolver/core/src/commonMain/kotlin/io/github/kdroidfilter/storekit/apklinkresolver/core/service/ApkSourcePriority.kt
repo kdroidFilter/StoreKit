@@ -1,4 +1,4 @@
-package io.github.kdroidfilter.storekit.apkdownloader.core.service
+package io.github.kdroidfilter.storekit.apklinkresolver.core.service
 
 /**
  * Enum representing the available APK sources.

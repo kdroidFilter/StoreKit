@@ -1,18 +1,12 @@
 package io.github.kdroidfilter.storekit.sample
 
 import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.services.getGooglePlayApplicationInfo
-import io.github.kdroidfilter.storekit.apkcombo.scraper.services.getApkComboApplicationInfo
-import io.github.kdroidfilter.storekit.apkdownloader.core.model.ApkDownloadInfo
-import io.github.kdroidfilter.storekit.apkdownloader.core.service.ApkDownloaderService
-import io.github.kdroidfilter.storekit.apkdownloader.core.service.ApkSource
-import io.github.kdroidfilter.storekit.apkdownloader.core.service.ApkSourcePriority
+import io.github.kdroidfilter.storekit.apklinkresolver.core.service.ApkSourcePriority
+import io.github.kdroidfilter.storekit.apklinkresolver.core.service.ApkLinkResolverService
+
 import io.github.kdroidfilter.storekit.aptoide.api.services.AptoideService
-import io.github.kdroidfilter.storekit.aptoide.core.model.*
 import io.github.kdroidfilter.storekit.fdroid.api.services.FDroidService
-import io.github.kdroidfilter.storekit.fdroid.core.model.*
-import io.github.kdroidfilter.storekit.gplay.core.model.*
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 /**
@@ -59,11 +53,11 @@ fun main() {
         println("=== APK Downloader Example ===")
 
         // Create an instance of the APK Downloader service
-        val apkDownloaderService = ApkDownloaderService()
+        val apkLinkResolverService = ApkLinkResolverService()
 
         try {
             // Get download link for a package using the custom priority
-            val downloadInfo = apkDownloaderService.getApkDownloadLink("com.apple.bnd")
+            val downloadInfo = apkLinkResolverService.getApkDownloadLink("com.apple.bnd")
 
             println("Download info for com.apple.bnd:")
             println(json.encodeToString(downloadInfo))

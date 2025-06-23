@@ -1,4 +1,4 @@
-package io.github.kdroidfilter.storekit.apkdownloader.core.model
+package io.github.kdroidfilter.storekit.apklinkresolver.core.model
 
 import kotlinx.serialization.Serializable
 
@@ -14,7 +14,7 @@ import kotlinx.serialization.Serializable
  * @property fileSize The size of the APK file in bytes (if available)
  */
 @Serializable
-data class ApkDownloadInfo(
+data class ApkLinkInfo(
     val packageName: String,
     val downloadLink: String,
     val source: String,
