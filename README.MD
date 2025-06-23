@@ -17,6 +17,10 @@
   - [Installation](#aptoide-installation)
   - [Usage](#aptoide-usage)
   - [Data Models](#aptoide-data-models)
+- [APKCombo](#-apkcombo)
+  - [Installation](#apkcombo-installation)
+  - [Usage](#apkcombo-usage)
+  - [Data Models](#apkcombo-data-models)
 - [App Authenticity](#-app-authenticity)
   - [Installation](#app-authenticity-installation)
   - [Usage](#app-authenticity-usage)
@@ -33,7 +37,8 @@ StoreKit is a comprehensive Kotlin multiplatform library for extracting detailed
 1. **Google Play Store** - A full Kotlin adaptation of the [google-play-scraper](https://github.com/JoMingyu/google-play-scraper) Python library
 2. **F-Droid Store** - A client for the F-Droid API
 3. **Aptoide Store** - A client for the Aptoide API
-4. **App Authenticity** - A utility for extracting SHA1 signatures from installed Android applications and detecting installation sources
+4. **APKCombo** - A scraper for the APKCombo website
+5. **App Authenticity** - A utility for extracting SHA1 signatures from installed Android applications and detecting installation sources
 
 With this library, you can fetch details such as application descriptions, developer information, categories, reviews, ratings, and more from multiple app stores using a consistent API.
 
@@ -41,7 +46,7 @@ This library is built using Kotlin Multiplatform and leverages kotlinx.serializa
 
 ## 📊 Features
 
-- **Multi-store support**: Extract app data from Google Play Store, F-Droid, and Aptoide
+- **Multi-store support**: Extract app data from Google Play Store, F-Droid, Aptoide, and APKCombo
 - **Comprehensive app details**: Fetch application information including title, description, developer info, price, etc.
 - **Rich metadata**: Retrieve app ratings, reviews, download counts, screenshots, icons, and videos
 - **App authenticity**: Extract SHA1 signatures from installed Android applications and detect installation sources
@@ -615,6 +620,96 @@ The `AptoideTime` class contains time information with the following fields:
 
 - `seconds: Double` - Time in seconds
 - `human: String` - Human-readable time
+
+## 📦 APKCombo
+
+### APKCombo Installation
+
+The APKCombo modules are available on Maven Central:
+
+#### APKCombo Scraper Module
+
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-apkcombo-scraper.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-apkcombo-scraper%22)
+
+For scraping data from the APKCombo website:
+
+##### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter:storekit-apkcombo-scraper:<version>")
+}
+```
+
+#### APKCombo Core Module
+
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-apkcombo-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-apkcombo-core%22)
+
+If you only need the model classes (like `ApkComboApplicationInfo`) without the scraping functionality:
+
+##### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter:storekit-apkcombo-core:<version>")
+}
+```
+
+### APKCombo Usage
+
+#### Fetching App Information from APKCombo
+
+To fetch detailed information about a specific app from APKCombo, you can use the `getApkComboApplicationInfo` function. This function requires the package name as a parameter.
+
+##### Parameters:
+
+- `packageName: String` (mandatory): The package name of the application.
+
+##### Returns:
+
+An instance of `ApkComboApplicationInfo` containing the application's information.
+
+##### Throws:
+
+`IllegalArgumentException` if the application with the given package name does not exist or is not accessible.
+
+##### Example:
+
+```kotlin
+fun main() {
+    val json = Json {
+        prettyPrint = true
+    }
+
+    runBlocking {
+        try {
+            // Fetch app information by package name
+            val appInfo = getApkComboApplicationInfo("com.google.android.gm")
+            println(json.encodeToString(appInfo))
+
+            // Get direct download link
+            println("Download link: ${appInfo.downloadLink}")
+
+        } catch (e: Exception) {
+            println("Error fetching app information: ${e.message}")
+            e.printStackTrace()
+        }
+    }
+}
+```
+
+### APKCombo Data Models
+
+#### `ApkComboApplicationInfo`
+
+The `ApkComboApplicationInfo` class represents detailed information about an application on the APKCombo website. It contains the following fields:
+
+- `title: String` - The title/name of the application
+- `version: String` - Current version of the application
+- `versionCode: String` - Version code of the application
+- `downloadLink: String` - Direct download link for the APK
+- `appId: String` - Unique identifier of the application (package name)
+- `url: String` - URL to the application's page on APKCombo
 
 ## 📱 App Authenticity
 
