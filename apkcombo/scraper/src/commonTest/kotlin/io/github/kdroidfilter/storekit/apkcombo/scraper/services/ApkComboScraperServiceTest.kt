@@ -14,7 +14,7 @@ class ApkComboScraperServiceTest {
     @Test
     fun testGetApkComboApplicationInfo_ValidPackage() = runBlocking {
         // Given
-        val packageName = "net.calj.android" // Using the same example as in the sample
+        val packageName = "com.google.android.gm"
 
         try {
             // When
