@@ -1,0 +1,44 @@
+name: Daily Tests
+
+on:
+  schedule:
+    # Run at 00:00 UTC every day
+    - cron: '0 0 * * *'
+  # Allow manual triggering of the workflow
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Run tests
+        run: |
+          ./gradlew apkcombo:core:allTests \
+                   apkcombo:scraper:allTests \
+                   aptoide:api:allTests \
+                   aptoide:core:allTests \
+                   authenticity:allTests \
+                   fdroid:api:allTests \
+                   fdroid:core:allTests \
+                   gplay:core:allTests \
+                   gplay:scrapper:allTests \
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: |
+            **/build/reports/tests/
+            **/build/reports/allTests/
+
