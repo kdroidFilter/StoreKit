@@ -734,6 +734,8 @@ The `ApkComboApplicationInfo` class represents detailed information about an app
 
 The APK Link Resolver module provides a unified way to retrieve APK download links from multiple sources (currently APKCombo and Aptoide) with configurable priority.
 
+Neither Aptoide nor APKCombo can guarantee obtaining an APK link for every application. This module solves this problem by providing a simple way to check one source first, and if the APK is not found there, automatically check the second source. This approach significantly increases the chances of successfully retrieving an APK download link without requiring you to implement fallback logic in your application.
+
 ### APK Link Resolver Installation
 
 The APK Link Resolver module is available on Maven Central:
@@ -764,7 +766,7 @@ ApkSourcePriority.setPriorityOrder(listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO)
 val currentPriority = ApkSourcePriority.getPriorityOrder()
 println("Current priority: $currentPriority")
 
-// Reset to default priority (APKCombo first, then Aptoide)
+// Reset to default priority (Aptoide first, then APKCombo)
 ApkSourcePriority.resetToDefault()
 ```
 
