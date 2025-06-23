@@ -24,7 +24,6 @@ jobs:
       - name: Run tests
         run: |
           ./gradlew apkcombo:core:allTests \
-#                   apkcombo:scraper:allTests \
                    aptoide:api:allTests \
                    aptoide:core:allTests \
                    authenticity:allTests \
