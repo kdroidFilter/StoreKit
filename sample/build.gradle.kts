@@ -20,6 +20,8 @@ kotlin {
             implementation(project(":gplay:scrapper"))
             implementation(project(":aptoide:api"))
             implementation(project(":fdroid:api"))
+            implementation(project(":apkcombo:scraper"))
+            implementation(project(":apklinkresolver:core"))
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.core)

@@ -34,6 +34,10 @@
   - [Installation](#apkcombo-installation)
   - [Usage](#apkcombo-usage)
   - [Data Models](#apkcombo-data-models)
+- [APK Link Resolver](#-apk-link-resolver)
+  - [Installation](#apk-link-resolver-installation)
+  - [Usage](#apk-link-resolver-usage)
+  - [Data Models](#apk-link-resolver-data-models)
 - [App Authenticity](#-app-authenticity)
   - [Installation](#app-authenticity-installation)
   - [Usage](#app-authenticity-usage)
@@ -51,7 +55,8 @@ StoreKit is a comprehensive Kotlin multiplatform library for extracting detailed
 2. **F-Droid Store** - A client for the F-Droid API
 3. **Aptoide Store** - A client for the Aptoide API
 4. **APKCombo** - A scraper for the APKCombo website
-5. **App Authenticity** - A utility for extracting SHA1 signatures from installed Android applications and detecting installation sources
+5. **APK Link Resolver** - A unified service for retrieving APK download links from multiple sources with configurable priority
+6. **App Authenticity** - A utility for extracting SHA1 signatures from installed Android applications and detecting installation sources
 
 With this library, you can fetch details such as application descriptions, developer information, categories, reviews, ratings, and more from multiple app stores using a consistent API.
 
@@ -62,6 +67,7 @@ This library is built using Kotlin Multiplatform and leverages kotlinx.serializa
 - **Multi-store support**: Extract app data from Google Play Store, F-Droid, Aptoide, and APKCombo
 - **Comprehensive app details**: Fetch application information including title, description, developer info, price, etc.
 - **Rich metadata**: Retrieve app ratings, reviews, download counts, screenshots, icons, and videos
+- **APK download links**: Get direct download links for APKs from multiple sources with configurable priority
 - **App authenticity**: Extract SHA1 signatures from installed Android applications and detect installation sources
 - **Cross-platform**: Works on Android, JVM, and other platforms supported by Kotlin Multiplatform
 - **Modular architecture**: Use only the modules you need for your specific use case
@@ -723,6 +729,97 @@ The `ApkComboApplicationInfo` class represents detailed information about an app
 - `downloadLink: String` - Direct download link for the APK
 - `appId: String` - Unique identifier of the application (package name)
 - `url: String` - URL to the application's page on APKCombo
+
+## 📥 APK Link Resolver
+
+The APK Link Resolver module provides a unified way to retrieve APK download links from multiple sources (currently APKCombo, Aptoide, and F-Droid) with configurable priority.
+
+Neither Aptoide, APKCombo, nor F-Droid can guarantee obtaining an APK link for every application. This module solves this problem by providing a simple way to check one source first, and if the APK is not found there, automatically check the next source. This approach significantly increases the chances of successfully retrieving an APK download link without requiring you to implement fallback logic in your application.
+
+### APK Link Resolver Installation
+
+The APK Link Resolver module is available on Maven Central:
+
+#### APK Link Resolver Core Module
+
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-apklinkresolver-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-apklinkresolver-core%22)
+
+##### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter:storekit-apklinkresolver-core:<version>")
+}
+```
+
+### APK Link Resolver Usage
+
+#### Configuring Source Priority
+
+You can configure the priority order of APK sources using the `ApkSourcePriority` singleton:
+
+```kotlin
+// Set Aptoide as the first source to try, then APKCombo, then F-Droid
+ApkSourcePriority.setPriorityOrder(listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO, ApkSource.FDROID))
+
+// Get the current priority order
+val currentPriority = ApkSourcePriority.getPriorityOrder()
+println("Current priority: $currentPriority")
+
+// Reset to default priority (Aptoide first, then APKCombo, then F-Droid)
+ApkSourcePriority.resetToDefault()
+```
+
+#### Retrieving APK Download Links
+
+To retrieve an APK download link for a specific package, use the `ApkLinkResolverService`:
+
+```kotlin
+fun main() {
+    runBlocking {
+        try {
+            val service = ApkLinkResolverService()
+
+            // Get download link for a package
+            val downloadInfo = service.getApkDownloadLink("com.google.android.gm")
+
+            println("Download link: ${downloadInfo.downloadLink}")
+            println("Source: ${downloadInfo.source}")
+            println("Version: ${downloadInfo.version}")
+            println("Title: ${downloadInfo.title}")
+            println("File size: ${downloadInfo.fileSize} bytes")
+
+        } catch (e: Exception) {
+            println("Error retrieving download link: ${e.message}")
+            e.printStackTrace()
+        }
+    }
+}
+```
+
+The service will try to retrieve the download link from each source in the order specified by the `ApkSourcePriority` configuration. If a source fails, it will try the next one. If all sources fail, it will throw an `IllegalArgumentException` with details about the failures.
+
+### APK Link Resolver Data Models
+
+#### `ApkSource`
+
+The `ApkSource` enum represents the available APK sources:
+
+- `APKCOMBO` - The APKCombo website
+- `APTOIDE` - The Aptoide store
+- `FDROID` - The F-Droid store
+
+#### `ApkLinkInfo`
+
+The `ApkLinkInfo` class represents information about an APK download with the following fields:
+
+- `packageName: String` - The package name of the application
+- `downloadLink: String` - The direct download link for the APK
+- `source: String` - The source of the download link (e.g., "APKCOMBO", "APTOIDE", "FDROID")
+- `version: String` - The version of the application (if available)
+- `versionCode: String` - The version code of the application (if available)
+- `title: String` - The title/name of the application (if available)
+- `fileSize: Long` - The size of the APK file in bytes, or -1 if the size could not be determined
 
 ## 📱 App Authenticity
 

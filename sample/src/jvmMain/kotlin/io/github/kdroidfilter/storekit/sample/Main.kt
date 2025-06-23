@@ -1,17 +1,16 @@
 package io.github.kdroidfilter.storekit.sample
 
 import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.services.getGooglePlayApplicationInfo
+import io.github.kdroidfilter.storekit.apklinkresolver.core.service.ApkSourcePriority
+import io.github.kdroidfilter.storekit.apklinkresolver.core.service.ApkLinkResolverService
+
 import io.github.kdroidfilter.storekit.aptoide.api.services.AptoideService
-import io.github.kdroidfilter.storekit.aptoide.core.model.*
 import io.github.kdroidfilter.storekit.fdroid.api.services.FDroidService
-import io.github.kdroidfilter.storekit.fdroid.core.model.*
-import io.github.kdroidfilter.storekit.gplay.core.model.*
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 /**
- * Sample application that creates example instances of Aptoide, F-Droid, and Google Play models
+ * Sample application that creates example instances of Aptoide, F-Droid, Google Play, and APK Downloader models
  * and prints them as JSON.
  */
 fun main() {
@@ -48,5 +47,31 @@ fun main() {
         // Print the F-Droid example as JSON
         println("=== F-Droid Example ===")
         println(json.encodeToString(fdroidPackage))
+        println()
+
+        // APK Downloader example
+        println("=== APK Downloader Example ===")
+
+        // Create an instance of the APK Downloader service
+        val apkLinkResolverService = ApkLinkResolverService()
+
+        try {
+            // Get download link for a package using the custom priority
+            val downloadInfo = apkLinkResolverService.getApkDownloadLink("com.apple.bnd")
+
+            println("Download info for com.apple.bnd:")
+            println(json.encodeToString(downloadInfo))
+            println()
+            println("Source: ${downloadInfo.source}")
+            println("Title: ${downloadInfo.title}")
+            println("Version: ${downloadInfo.version}")
+            println("Download Link: ${downloadInfo.downloadLink}")
+            println("File Size: ${downloadInfo.fileSize} bytes")
+        } catch (e: Exception) {
+            println("Error retrieving download link: ${e.message}")
+        } finally {
+            // Reset to default priority
+            ApkSourcePriority.resetToDefault()
+        }
     }
 }

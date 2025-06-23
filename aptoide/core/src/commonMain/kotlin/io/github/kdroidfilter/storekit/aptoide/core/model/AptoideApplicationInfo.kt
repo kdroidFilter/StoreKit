@@ -214,7 +214,7 @@ data class AptoideHardware(
     val screen: String = "",
     val gles: Int = 0,
     val cpus: List<String> = emptyList(),
-    val densities: List<String> = emptyList(),
+    val densities: List<List<Int>> = emptyList(),
     val dependencies: List<AptoideDependency> = emptyList()
 )
 
