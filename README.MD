@@ -1,6 +1,15 @@
 # 💡 StoreKit Library
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-gplay-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-gplay-core%22)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/kdroidFilter/StoreKit/publish.yml?label=Publish)](https://github.com/kdroidFilter/StoreKit/actions/workflows/publish.yml)
+[![Kotlin](https://img.shields.io/badge/kotlin-multiplatform-blue.svg)](https://kotlinlang.org/)
+[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg)](https://android-arsenal.com/api?level=21)
+[![Dependabot](https://img.shields.io/badge/dependabot-enabled-025e8c?logo=Dependabot)](https://github.com/kdroidFilter/StoreKit/network/updates)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/kdroidFilter/StoreKit)](https://github.com/kdroidFilter/StoreKit/releases)
+[![GitHub issues](https://img.shields.io/github/issues/kdroidFilter/StoreKit)](https://github.com/kdroidFilter/StoreKit/issues)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/kdroidFilter/StoreKit)](https://github.com/kdroidFilter/StoreKit)
+[![GitHub last commit](https://img.shields.io/github/last-commit/kdroidFilter/StoreKit)](https://github.com/kdroidFilter/StoreKit/commits)
 
 ## 📑 Table of Contents
 - [Introduction](#-introduction)
