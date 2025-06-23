@@ -1,4 +1,4 @@
-rootProject.name = "AndroidAppStoreKit"
+rootProject.name = "StoreKit"
 
 pluginManagement {
     repositories {
