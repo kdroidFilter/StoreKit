@@ -4,8 +4,8 @@ package io.github.kdroidfilter.storekit.apkdownloader.core.service
  * Enum representing the available APK sources.
  */
 enum class ApkSource {
-    APKCOMBO,
-    APTOIDE
+    APTOIDE,
+    APKCOMBO
 }
 
 /**
@@ -16,7 +16,7 @@ object ApkSourcePriority {
     /**
      * The default priority order for APK sources.
      */
-    private var priorityOrder: List<ApkSource> = listOf(ApkSource.APKCOMBO, ApkSource.APTOIDE)
+    private var priorityOrder: List<ApkSource> = listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO)
 
     /**
      * Sets the priority order for APK sources.
@@ -27,7 +27,7 @@ object ApkSourcePriority {
     fun setPriorityOrder(sources: List<ApkSource>) {
         require(sources.isNotEmpty()) { "Priority list cannot be empty" }
         require(sources.toSet().size == sources.size) { "Priority list cannot contain duplicates" }
-        require(sources.toSet() == ApkSource.values().toSet()) { "Priority list must contain all APK sources" }
+        require(sources.toSet() == ApkSource.entries.toSet()) { "Priority list must contain all APK sources" }
         
         priorityOrder = sources.toList()
     }
@@ -43,6 +43,6 @@ object ApkSourcePriority {
      * Resets the priority order to the default.
      */
     fun resetToDefault() {
-        priorityOrder = listOf(ApkSource.APKCOMBO, ApkSource.APTOIDE)
+        priorityOrder = listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO)
     }
 }
