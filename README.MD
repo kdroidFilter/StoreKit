@@ -797,7 +797,7 @@ fun main() {
 
 The service will try to retrieve the download link from each source in the order specified by the `ApkSourcePriority` configuration. If a source fails, it will try the next one. If all sources fail, it will throw an `IllegalArgumentException` with details about the failures.
 
-### APK Downloader Data Models
+### APK Link Resolver Data Models
 
 #### `ApkSource`
 
