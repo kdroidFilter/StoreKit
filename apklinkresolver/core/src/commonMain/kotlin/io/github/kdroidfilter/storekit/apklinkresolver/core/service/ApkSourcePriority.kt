@@ -5,7 +5,8 @@ package io.github.kdroidfilter.storekit.apklinkresolver.core.service
  */
 enum class ApkSource {
     APTOIDE,
-    APKCOMBO
+    APKCOMBO,
+    FDROID
 }
 
 /**
@@ -16,7 +17,7 @@ object ApkSourcePriority {
     /**
      * The default priority order for APK sources.
      */
-    private var priorityOrder: List<ApkSource> = listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO)
+    private var priorityOrder: List<ApkSource> = listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO, ApkSource.FDROID)
 
     /**
      * Sets the priority order for APK sources.
@@ -28,7 +29,7 @@ object ApkSourcePriority {
         require(sources.isNotEmpty()) { "Priority list cannot be empty" }
         require(sources.toSet().size == sources.size) { "Priority list cannot contain duplicates" }
         require(sources.toSet() == ApkSource.entries.toSet()) { "Priority list must contain all APK sources" }
-        
+
         priorityOrder = sources.toList()
     }
 
@@ -43,6 +44,6 @@ object ApkSourcePriority {
      * Resets the priority order to the default.
      */
     fun resetToDefault() {
-        priorityOrder = listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO)
+        priorityOrder = listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO, ApkSource.FDROID)
     }
 }

@@ -732,9 +732,9 @@ The `ApkComboApplicationInfo` class represents detailed information about an app
 
 ## 📥 APK Link Resolver
 
-The APK Link Resolver module provides a unified way to retrieve APK download links from multiple sources (currently APKCombo and Aptoide) with configurable priority.
+The APK Link Resolver module provides a unified way to retrieve APK download links from multiple sources (currently APKCombo, Aptoide, and F-Droid) with configurable priority.
 
-Neither Aptoide nor APKCombo can guarantee obtaining an APK link for every application. This module solves this problem by providing a simple way to check one source first, and if the APK is not found there, automatically check the second source. This approach significantly increases the chances of successfully retrieving an APK download link without requiring you to implement fallback logic in your application.
+Neither Aptoide, APKCombo, nor F-Droid can guarantee obtaining an APK link for every application. This module solves this problem by providing a simple way to check one source first, and if the APK is not found there, automatically check the next source. This approach significantly increases the chances of successfully retrieving an APK download link without requiring you to implement fallback logic in your application.
 
 ### APK Link Resolver Installation
 
@@ -759,14 +759,14 @@ dependencies {
 You can configure the priority order of APK sources using the `ApkSourcePriority` singleton:
 
 ```kotlin
-// Set Aptoide as the first source to try, then APKCombo
-ApkSourcePriority.setPriorityOrder(listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO))
+// Set Aptoide as the first source to try, then APKCombo, then F-Droid
+ApkSourcePriority.setPriorityOrder(listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO, ApkSource.FDROID))
 
 // Get the current priority order
 val currentPriority = ApkSourcePriority.getPriorityOrder()
 println("Current priority: $currentPriority")
 
-// Reset to default priority (Aptoide first, then APKCombo)
+// Reset to default priority (Aptoide first, then APKCombo, then F-Droid)
 ApkSourcePriority.resetToDefault()
 ```
 
@@ -807,6 +807,7 @@ The `ApkSource` enum represents the available APK sources:
 
 - `APKCOMBO` - The APKCombo website
 - `APTOIDE` - The Aptoide store
+- `FDROID` - The F-Droid store
 
 #### `ApkLinkInfo`
 
@@ -814,7 +815,7 @@ The `ApkLinkInfo` class represents information about an APK download with the fo
 
 - `packageName: String` - The package name of the application
 - `downloadLink: String` - The direct download link for the APK
-- `source: String` - The source of the download link (e.g., "APKCOMBO", "APTOIDE")
+- `source: String` - The source of the download link (e.g., "APKCOMBO", "APTOIDE", "FDROID")
 - `version: String` - The version of the application (if available)
 - `versionCode: String` - The version code of the application (if available)
 - `title: String` - The title/name of the application (if available)

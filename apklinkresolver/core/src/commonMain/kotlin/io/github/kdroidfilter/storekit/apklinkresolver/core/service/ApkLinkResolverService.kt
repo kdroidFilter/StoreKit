@@ -6,6 +6,8 @@ import io.github.kdroidfilter.storekit.apklinkresolver.core.model.ApkLinkInfo
 import io.github.kdroidfilter.storekit.apklinkresolver.core.utils.FileUtils
 import io.github.kdroidfilter.storekit.aptoide.api.services.AptoideService
 import io.github.kdroidfilter.storekit.aptoide.core.model.AptoideApplicationInfo
+import io.github.kdroidfilter.storekit.fdroid.api.services.FDroidService
+import io.github.kdroidfilter.storekit.fdroid.core.model.FDroidPackageInfo
 import io.github.oshai.kotlinlogging.KotlinLogging
 
 /**
@@ -14,6 +16,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 class ApkLinkResolverService {
     private val logger = KotlinLogging.logger {}
     private val aptoideService = AptoideService()
+    private val fdroidService = FDroidService()
 
     /**
      * Retrieves an APK download link for the specified package name.
@@ -43,6 +46,11 @@ class ApkLinkResolverService {
                         logger.info { "Trying to get download link from Aptoide" }
                         val appInfo = aptoideService.getAppMetaByPackageName(packageName)
                         return createApkLinkInfoFromAptoide(appInfo)
+                    }
+                    ApkSource.FDROID -> {
+                        logger.info { "Trying to get download link from F-Droid" }
+                        val packageInfo = fdroidService.getPackageInfo(packageName)
+                        return createApkLinkInfoFromFDroid(packageInfo)
                     }
                 }
             } catch (e: Exception) {
@@ -109,6 +117,31 @@ class ApkLinkResolverService {
             version = appInfo.file.vername,
             versionCode = appInfo.file.vercode.toString(),
             title = appInfo.name,
+            fileSize = fileSize
+        )
+    }
+
+    /**
+     * Creates an [ApkLinkInfo] from a [FDroidPackageInfo].
+     */
+    private suspend fun createApkLinkInfoFromFDroid(packageInfo: FDroidPackageInfo): ApkLinkInfo {
+        // Get the download link for the suggested version
+        val downloadLink = packageInfo.getSuggestedVersionDownloadLink()
+            ?: throw IllegalArgumentException("No download link available for package: ${packageInfo.packageName}")
+
+        // Get file size from download link
+        val fileSize = FileUtils.getFileSizeFromUrl(downloadLink)
+
+        // Find the suggested version details
+        val suggestedVersion = packageInfo.packages.find { it.versionCode == packageInfo.suggestedVersionCode }
+
+        return ApkLinkInfo(
+            packageName = packageInfo.packageName,
+            downloadLink = downloadLink,
+            source = ApkSource.FDROID.name,
+            version = suggestedVersion?.versionName ?: "",
+            versionCode = packageInfo.suggestedVersionCode.toString(),
+            title = packageInfo.packageName, // F-Droid API doesn't provide app title in the package info
             fileSize = fileSize
         )
     }

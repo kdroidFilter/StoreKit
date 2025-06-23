@@ -28,6 +28,8 @@ kotlin {
             implementation(project(":aptoide:core"))
             implementation(project(":aptoide:api"))
             implementation(project(":apkcombo:scraper"))
+            implementation(project(":fdroid:core"))
+            implementation(project(":fdroid:api"))
             implementation(libs.kotlin.logging)
             compileOnly(libs.ktor.client.core)
             compileOnly(libs.ktor.client.content.negotiation)
