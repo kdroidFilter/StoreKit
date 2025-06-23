@@ -785,6 +785,7 @@ fun main() {
             println("Source: ${downloadInfo.source}")
             println("Version: ${downloadInfo.version}")
             println("Title: ${downloadInfo.title}")
+            println("File size: ${downloadInfo.fileSize} bytes")
 
         } catch (e: Exception) {
             println("Error retrieving download link: ${e.message}")
