@@ -9,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 fun main() = runBlocking {
     try {
         // Example package name
-        val packageName = "com.github.android"
+        val packageName = "com.provisiontwo.isr"
         
         // Fetch app information from APKCombo
         val appInfo = getApkComboApplicationInfo(packageName)
