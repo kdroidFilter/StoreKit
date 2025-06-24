@@ -1,7 +1,7 @@
 [versions]
 
 junit-junit = "4.13.2"
-kotlin = "2.1.21"
+kotlin = "2.2.0"
 agp = "8.9.3"
 kotlin-logging = "7.0.7"
 kotlinx-coroutines = "1.10.2"
