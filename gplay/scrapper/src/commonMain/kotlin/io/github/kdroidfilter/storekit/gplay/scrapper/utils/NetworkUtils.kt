@@ -1,7 +1,7 @@
 package io.github.kdroidfilter.storekit.gplay.scrapper.utils
 
-import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.constants.BASE_PLAY_STORE_URL
-import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.constants.DETAIL_PATH
+import io.github.kdroidfilter.storekit.gplay.scrapper.constants.BASE_PLAY_STORE_URL
+import io.github.kdroidfilter.storekit.gplay.scrapper.constants.DETAIL_PATH
 import com.mohamedrejeb.ksoup.html.parser.KsoupHtmlHandler
 import com.mohamedrejeb.ksoup.html.parser.KsoupHtmlParser
 import io.github.oshai.kotlinlogging.KotlinLogging

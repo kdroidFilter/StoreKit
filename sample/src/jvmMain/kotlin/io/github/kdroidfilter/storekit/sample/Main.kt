@@ -1,6 +1,6 @@
 package io.github.kdroidfilter.storekit.sample
 
-import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.services.getGooglePlayApplicationInfo
+import io.github.kdroidfilter.storekit.gplay.scrapper.services.getGooglePlayApplicationInfo
 import io.github.kdroidfilter.storekit.apklinkresolver.core.service.ApkSourcePriority
 import io.github.kdroidfilter.storekit.apklinkresolver.core.service.ApkLinkResolverService
 

@@ -1,7 +1,7 @@
-package io.github.kdroidfilter.androidappstorekit.gplay.scrapper.services
+package io.github.kdroidfilter.storekit.gplay.scrapper.services
 
-import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.constants.BASE_PLAY_STORE_URL
-import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.constants.DETAIL_PATH
+import io.github.kdroidfilter.storekit.gplay.scrapper.constants.BASE_PLAY_STORE_URL
+import io.github.kdroidfilter.storekit.gplay.scrapper.constants.DETAIL_PATH
 import io.github.kdroidfilter.storekit.gplay.core.model.GooglePlayApplicationInfo
 import io.github.kdroidfilter.storekit.gplay.core.model.GooglePlayCategory
 
@@ -15,7 +15,7 @@ import io.github.kdroidfilter.storekit.gplay.scrapper.utils.JsonExtensions.neste
 import io.github.kdroidfilter.storekit.gplay.scrapper.utils.NetworkUtils.extractJsonBlobsFromHtml
 import io.github.kdroidfilter.storekit.gplay.scrapper.utils.NetworkUtils.fetchAppPage
 import io.github.kdroidfilter.storekit.gplay.scrapper.utils.NetworkUtils.logger
-import io.github.kdroidfilter.androidappstorekit.gplay.scrapper.utils.parseDataSetsFromScripts
+import io.github.kdroidfilter.storekit.gplay.scrapper.utils.parseDataSetsFromScripts
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.serialization.json.JsonArray
