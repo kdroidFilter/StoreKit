@@ -10,7 +10,7 @@ ksoup-html      = "0.6.0"
 ksoup-entities  = "0.6.0"
 ktor = "3.2.0"
 slf4j-simple = "2.0.17"
-vanniktech = "0.32.0"
+vanniktech = "0.34.0"
 
 [libraries]
 junit-junit = { module = "junit:junit", version.ref = "junit-junit" }
