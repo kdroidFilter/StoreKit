@@ -8,6 +8,8 @@ import io.github.kdroidfilter.storekit.aptoide.api.services.AptoideService
 import io.github.kdroidfilter.storekit.aptoide.core.model.AptoideApplicationInfo
 import io.github.kdroidfilter.storekit.fdroid.api.services.FDroidService
 import io.github.kdroidfilter.storekit.fdroid.core.model.FDroidPackageInfo
+import io.github.kdroidfilter.storekit.apkpure.core.model.ApkPureApplicationInfo
+import io.github.kdroidfilter.storekit.apkpure.scraper.services.getApkPureApplicationInfo
 import io.github.oshai.kotlinlogging.KotlinLogging
 
 /**
@@ -51,6 +53,11 @@ class ApkLinkResolverService {
                         logger.info { "Trying to get download link from F-Droid" }
                         val packageInfo = fdroidService.getPackageInfo(packageName)
                         return createApkLinkInfoFromFDroid(packageInfo)
+                    }
+                    ApkSource.APKPURE -> {
+                        logger.info { "Trying to get download link from APKPure" }
+                        val appInfo = getApkPureApplicationInfo(packageName)
+                        return createApkLinkInfoFromApkPure(appInfo)
                     }
                 }
             } catch (e: Exception) {
@@ -117,6 +124,22 @@ class ApkLinkResolverService {
             version = appInfo.file.vername,
             versionCode = appInfo.file.vercode.toString(),
             title = appInfo.name,
+            fileSize = fileSize
+        )
+    }
+
+    /**
+     * Creates an [ApkLinkInfo] from an [ApkPureApplicationInfo].
+     */
+    private suspend fun createApkLinkInfoFromApkPure(appInfo: ApkPureApplicationInfo): ApkLinkInfo {
+        val fileSize = FileUtils.getFileSizeFromUrl(appInfo.downloadLink)
+        return ApkLinkInfo(
+            packageName = appInfo.appId,
+            downloadLink = appInfo.downloadLink,
+            source = ApkSource.APKPURE.name,
+            version = appInfo.version,
+            versionCode = appInfo.versionCode,
+            title = appInfo.title,
             fileSize = fileSize
         )
     }
