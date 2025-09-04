@@ -4,9 +4,10 @@ package io.github.kdroidfilter.storekit.apklinkresolver.core.service
  * Enum representing the available APK sources.
  */
 enum class ApkSource {
+    APKPURE,
     APTOIDE,
     APKCOMBO,
-    FDROID
+    FDROID,
 }
 
 /**
@@ -17,7 +18,8 @@ object ApkSourcePriority {
     /**
      * The default priority order for APK sources.
      */
-    private var priorityOrder: List<ApkSource> = listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO, ApkSource.FDROID)
+    private val defaultOrder: List<ApkSource> = listOf(ApkSource.APKPURE, ApkSource.APKCOMBO, ApkSource.FDROID, ApkSource.APTOIDE)
+    private var priorityOrder: List<ApkSource> = defaultOrder
 
     /**
      * Sets the priority order for APK sources.
@@ -28,9 +30,13 @@ object ApkSourcePriority {
     fun setPriorityOrder(sources: List<ApkSource>) {
         require(sources.isNotEmpty()) { "Priority list cannot be empty" }
         require(sources.toSet().size == sources.size) { "Priority list cannot contain duplicates" }
-        require(sources.toSet() == ApkSource.entries.toSet()) { "Priority list must contain all APK sources" }
+        // Allow partial ordering; unspecified sources will be tried after in their default order
+                // Previously required all sources; relaxing to support dynamic additions like APKPURE
+                // No strict check here beyond non-empty and no duplicates.
 
-        priorityOrder = sources.toList()
+        // Merge with default order to append unspecified sources at the end in their default order
+        val remaining = defaultOrder.filterNot { sources.contains(it) }
+        priorityOrder = sources.toList() + remaining
     }
 
     /**
@@ -44,6 +50,6 @@ object ApkSourcePriority {
      * Resets the priority order to the default.
      */
     fun resetToDefault() {
-        priorityOrder = listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO, ApkSource.FDROID)
+        priorityOrder = defaultOrder
     }
 }

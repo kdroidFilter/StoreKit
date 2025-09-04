@@ -3,17 +3,29 @@ package io.github.kdroidfilter.storekit.sample
 import io.github.kdroidfilter.storekit.gplay.scrapper.services.getGooglePlayApplicationInfo
 import io.github.kdroidfilter.storekit.apklinkresolver.core.service.ApkSourcePriority
 import io.github.kdroidfilter.storekit.apklinkresolver.core.service.ApkLinkResolverService
+import io.github.kdroidfilter.storekit.apklinkresolver.core.service.ApkSource
 
 import io.github.kdroidfilter.storekit.aptoide.api.services.AptoideService
 import io.github.kdroidfilter.storekit.fdroid.api.services.FDroidService
+import io.github.kdroidfilter.storekit.apkpure.scraper.services.getApkPureApplicationInfo
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 
 /**
- * Sample application that creates example instances of Aptoide, F-Droid, Google Play, and APK Downloader models
+ * Sample application that creates example instances of Aptoide, F-Droid, Google Play, APKPure, and APK Downloader models
  * and prints them as JSON.
  */
 fun main() {
+
+    ApkSourcePriority.setPriorityOrder(
+        listOf(
+            ApkSource.APKPURE,
+            ApkSource.APKCOMBO,
+            ApkSource.FDROID,
+            ApkSource.APTOIDE,
+        )
+    )
+
     // Create a pretty-printed JSON formatter
     val json = Json { 
         prettyPrint = true 
@@ -49,6 +61,16 @@ fun main() {
         println(json.encodeToString(fdroidPackage))
         println()
 
+        // APKPure example
+        try {
+            val apkpureApp = getApkPureApplicationInfo("com.citycar.flutter")
+            println("=== APKPure Example ===")
+            println(json.encodeToString(apkpureApp))
+            println()
+        } catch (e: Exception) {
+            println("Error retrieving APKPure info: ${e.message}")
+        }
+
         // APK Downloader example
         println("=== APK Downloader Example ===")
 
@@ -57,7 +79,7 @@ fun main() {
 
         try {
             // Get download link for a package using the custom priority
-            val downloadInfo = apkLinkResolverService.getApkDownloadLink("com.apple.bnd")
+            val downloadInfo = apkLinkResolverService.getApkDownloadLink("com.unicell.pangoandroid")
 
             println("Download info for com.apple.bnd:")
             println(json.encodeToString(downloadInfo))
@@ -65,6 +87,7 @@ fun main() {
             println("Source: ${downloadInfo.source}")
             println("Title: ${downloadInfo.title}")
             println("Version: ${downloadInfo.version}")
+            println("Version Code: ${downloadInfo.versionCode}")
             println("Download Link: ${downloadInfo.downloadLink}")
             println("File Size: ${downloadInfo.fileSize} bytes")
         } catch (e: Exception) {

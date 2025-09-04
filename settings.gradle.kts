@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.include
+
 rootProject.name = "StoreKit"
 
 pluginManagement {
@@ -34,6 +36,8 @@ include(":aptoide:core")
 include(":aptoide:api")
 include(":fdroid:core")
 include(":fdroid:api")
+include(":apkpure:core")
+include(":apkpure:scraper")
 include(":apkcombo:core")
 include(":apkcombo:scraper")
 include(":apklinkresolver:core")
