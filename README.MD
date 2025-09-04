@@ -38,6 +38,10 @@
   - [Installation](#apk-link-resolver-installation)
   - [Usage](#apk-link-resolver-usage)
   - [Data Models](#apk-link-resolver-data-models)
+- [APKPure](#-apkpure)
+  - [Installation](#apkpure-installation)
+  - [Usage](#apkpure-usage)
+  - [Data Models](#apkpure-data-models)
 - [App Authenticity](#-app-authenticity)
   - [Installation](#app-authenticity-installation)
   - [Usage](#app-authenticity-usage)
@@ -55,8 +59,9 @@ StoreKit is a comprehensive Kotlin multiplatform library for extracting detailed
 2. **F-Droid Store** - A client for the F-Droid API
 3. **Aptoide Store** - A client for the Aptoide API
 4. **APKCombo** - A scraper for the APKCombo website
-5. **APK Link Resolver** - A unified service for retrieving APK download links from multiple sources with configurable priority
-6. **App Authenticity** - A utility for extracting SHA1 signatures from installed Android applications and detecting installation sources
+5. **APKPure** - A scraper for the APKPure website (title, version, versionCode, signature, and a direct XAPK link using version=latest)
+6. **APK Link Resolver** - A unified service for retrieving APK download links from multiple sources with configurable priority
+7. **App Authenticity** - A utility for extracting SHA1 signatures from installed Android applications and detecting installation sources
 
 With this library, you can fetch details such as application descriptions, developer information, categories, reviews, ratings, and more from multiple app stores using a consistent API.
 
@@ -64,7 +69,7 @@ This library is built using Kotlin Multiplatform and leverages kotlinx.serializa
 
 ## 📊 Features
 
-- **Multi-store support**: Extract app data from Google Play Store, F-Droid, Aptoide, and APKCombo
+- **Multi-store support**: Extract app data from Google Play Store, F-Droid, Aptoide, APKPure, and APKCombo
 - **Comprehensive app details**: Fetch application information including title, description, developer info, price, etc.
 - **Rich metadata**: Retrieve app ratings, reviews, download counts, screenshots, icons, and videos
 - **APK download links**: Get direct download links for APKs from multiple sources with configurable priority
@@ -732,7 +737,7 @@ The `ApkComboApplicationInfo` class represents detailed information about an app
 
 ## 📥 APK Link Resolver
 
-The APK Link Resolver module provides a unified way to retrieve APK download links from multiple sources (currently APKCombo, Aptoide, and F-Droid) with configurable priority.
+The APK Link Resolver module provides a unified way to retrieve APK download links from multiple sources (APKPure, APKCombo, Aptoide, and F-Droid) with configurable priority.
 
 Neither Aptoide, APKCombo, nor F-Droid can guarantee obtaining an APK link for every application. This module solves this problem by providing a simple way to check one source first, and if the APK is not found there, automatically check the next source. This approach significantly increases the chances of successfully retrieving an APK download link without requiring you to implement fallback logic in your application.
 
@@ -759,14 +764,14 @@ dependencies {
 You can configure the priority order of APK sources using the `ApkSourcePriority` singleton:
 
 ```kotlin
-// Set Aptoide as the first source to try, then APKCombo, then F-Droid
-ApkSourcePriority.setPriorityOrder(listOf(ApkSource.APTOIDE, ApkSource.APKCOMBO, ApkSource.FDROID))
+// Exemple: essayer d'abord APKPure, puis APKCombo, puis F-Droid (les autres sources non précisées seront ajoutées à la fin dans l'ordre par défaut)
+ApkSourcePriority.setPriorityOrder(listOf(ApkSource.APKPURE, ApkSource.APKCOMBO, ApkSource.FDROID))
 
 // Get the current priority order
 val currentPriority = ApkSourcePriority.getPriorityOrder()
 println("Current priority: $currentPriority")
 
-// Reset to default priority (Aptoide first, then APKCombo, then F-Droid)
+// Réinitialiser l'ordre par défaut (APKPure, APKCombo, FDroid, Aptoide)
 ApkSourcePriority.resetToDefault()
 ```
 
@@ -797,7 +802,7 @@ fun main() {
 }
 ```
 
-The service will try to retrieve the download link from each source in the order specified by the `ApkSourcePriority` configuration. If a source fails, it will try the next one. If all sources fail, it will throw an `IllegalArgumentException` with details about the failures.
+The service will try to retrieve the download link from each source in the order specified by the `ApkSourcePriority` configuration. You can specify a partial priority list; any unspecified sources are appended automatically in the default order (by default: APKPURE, APKCOMBO, FDROID, APTOIDE). If a source fails, it will try the next one. If all sources fail, it will throw an `IllegalArgumentException` with details about the failures.
 
 ### APK Link Resolver Data Models
 
@@ -805,6 +810,7 @@ The service will try to retrieve the download link from each source in the order
 
 The `ApkSource` enum represents the available APK sources:
 
+- `APKPURE` - The APKPure website
 - `APKCOMBO` - The APKCombo website
 - `APTOIDE` - The Aptoide store
 - `FDROID` - The F-Droid store
@@ -815,11 +821,85 @@ The `ApkLinkInfo` class represents information about an APK download with the fo
 
 - `packageName: String` - The package name of the application
 - `downloadLink: String` - The direct download link for the APK
-- `source: String` - The source of the download link (e.g., "APKCOMBO", "APTOIDE", "FDROID")
+- `source: String` - The source of the download link (e.g., "APKPURE", "APKCOMBO", "APTOIDE", "FDROID")
 - `version: String` - The version of the application (if available)
 - `versionCode: String` - The version code of the application (if available)
 - `title: String` - The title/name of the application (if available)
 - `fileSize: Long` - The size of the APK file in bytes, or -1 if the size could not be determined
+
+## 📦 APKPure
+
+### APKPure Installation
+
+The APKPure modules are available on Maven Central:
+
+#### APKPure Scraper Module
+
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-apkpure-api.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-apkpure-api%22)
+
+For scraping data from the APKPure website:
+
+##### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter:storekit-apkpure-api:<version>")
+}
+```
+
+#### APKPure Core Module
+
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kdroidfilter/storekit-apkpure-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.kdroidfilter%22%20AND%20a:%22storekit-apkpure-core%22)
+
+If you only need the model classes (like `ApkPureApplicationInfo`) without the scraping functionality:
+
+##### Gradle Kotlin DSL
+
+```kotlin
+dependencies {
+    implementation("io.github.kdroidfilter:storekit-apkpure-core:<version>")
+}
+```
+
+### APKPure Usage
+
+#### Fetching App Information from APKPure
+
+To fetch application info (title, version, versionCode, signature, and a direct XAPK download link with `version=latest`) use `getApkPureApplicationInfo`:
+
+```kotlin
+fun main() {
+    val json = Json { 
+        prettyPrint = true 
+        encodeDefaults = true
+    }
+
+    runBlocking {
+        try {
+            val app = getApkPureApplicationInfo("com.waze")
+            println(json.encodeToString(app))
+            // The download link uses: https://d.apkpure.com/b/XAPK/<package>?version=latest
+            println("Direct link: ${'$'}{app.downloadLink}")
+            println("Signature: ${'$'}{app.signature}")
+            println("VersionCode: ${'$'}{app.versionCode}")
+        } catch (e: Exception) {
+            println("Error: ${'$'}{e.message}")
+        }
+    }
+}
+```
+
+### APKPure Data Models
+
+#### `ApkPureApplicationInfo`
+
+- `title: String`
+- `version: String`
+- `versionCode: String`
+- `signature: String`
+- `downloadLink: String` (always uses `version=latest`)
+- `appId: String`
+- `url: String`
 
 ## 📱 App Authenticity
 
